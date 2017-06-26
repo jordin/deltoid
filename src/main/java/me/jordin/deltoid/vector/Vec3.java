@@ -308,6 +308,26 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     /**
+     * Returns the <b>Vec3</b> with elements multiplied by {@code multiplier}.
+     *
+     * @param multiplier the <b>Vec3</b> to multiply by.
+     * @return the <b>Vec3</b>
+     */
+    public Vec3 multiplyElements(Vec3 multiplier) {
+        return new Vec3(x * multiplier.x, y * multiplier.y, z * multiplier.z);
+    }
+
+    /**
+     * Returns the <b>Vec3</b> with elements multiplied by {@code multiplier}.
+     *
+     * @param multiplier the number to multiply by.
+     * @return the <b>Vec3</b>
+     */
+    public Vec3 multiplyElements(double multiplier) {
+        return new Vec3(x * multiplier, y * multiplier, z * multiplier);
+    }
+
+    /**
      * Returns the <b>Vec3</b> with elements divided by {@code denominator}.
      *
      * @param denominator the <b>Vec3</b> to divide by.
