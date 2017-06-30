@@ -66,7 +66,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("surface_area")
+    @SerializedName("area")
     private final double surfaceArea;
 
     /**

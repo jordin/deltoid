@@ -41,7 +41,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("surface_area")
+    @SerializedName("area")
     private double surfaceArea;
 
     public CircleRegion(Vec2 centre, double radius) {
