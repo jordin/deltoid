@@ -45,8 +45,8 @@ public class ProjectionUtilities {
     }
 
     /**
-     * Returns the <b>Rotation</b> required to have a view
-     * centred at the <b>origin</b> intersect <b>offset</b>.
+     * Returns the <b>Vec3</b> that is closest to the "crosshair"
+     * centred at <b>eyePos</b> with look vector <b>lookVec</b>.
      *
      * @param eyePos      the location of the eye position.
      * @param lookVec     a {@code normalize}d <b>Vec3</b> representing the camera's look vector.
