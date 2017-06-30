@@ -23,7 +23,6 @@ public class DeltoidTester {
         }
 
         logWithTime("Length Calculation");
-
     }
 
     public static void logWithTime(String test) {

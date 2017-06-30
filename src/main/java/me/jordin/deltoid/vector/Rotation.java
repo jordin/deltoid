@@ -129,7 +129,7 @@ public class Rotation implements Vector<Rotation> {
     /**
      * Returns the unit <b>Rotation</b> parallel to this <b>Rotation</b>.
      *
-     * @return Nothing.
+     * @return Nothing
      * @throws UnsupportedOperationException <b>Rotation</b> {@code normalize} is meaningless.
      */
     public Rotation normalize() {

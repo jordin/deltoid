@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SphereRegion implements Region<SphereRegion, Vec3> {
     /**
-     * A <b>SphereRegion</b> with coordinates <b>[0, 0, 0]</b> {@code [0, 0, 0]}and radius <b>r = 0.0</b>.
+     * A <b>SphereRegion</b> with coordinates <b>[0, 0, 0]</b> and radius <b>r = 0.0</b>.
      */
     public static final SphereRegion ORIGIN = new SphereRegion(Vec3.ORIGIN, 0);
 
@@ -89,7 +89,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return radius != 0;
+        return this.radius != 0;
     }
 
     /**

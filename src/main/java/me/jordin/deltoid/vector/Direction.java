@@ -112,7 +112,7 @@ public class Direction implements Vector<Direction> {
     /**
      * Returns the unit <b>Direction</b> parallel to this <b>Direction</b>.
      *
-     * @return Nothing.
+     * @return Nothing
      * @throws UnsupportedOperationException <b>Direction</b> {@code normalize} is meaningless.
      */
     @Override

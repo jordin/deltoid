@@ -1,8 +1,7 @@
 package me.jordin.deltoid.utils;
 
-import me.jordin.deltoid.region.CuboidRegion;
-import me.jordin.deltoid.region.Region;
-import me.jordin.deltoid.region.SphereRegion;
+import me.jordin.deltoid.region.*;
+import me.jordin.deltoid.vector.Vec2;
 import me.jordin.deltoid.vector.Vec3;
 
 import java.util.ArrayList;
@@ -30,6 +29,42 @@ public class UnionUtilities {
         return region1.enclosedPoints().stream()
                 .filter(region2::contains)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Creates the smallest possible <b>RectangleRegion</b>
+     * that fully encloses <b>rect1</b> and <b>rect2</b>.
+     *
+     * @param rect1 the first <b>RectangleRegion</b> to be considered
+     * @param rect2 the second <b>RectangleRegion</b> to be considered
+     * @return the <b>RectangleRegion</b>
+     */
+    public static RectangleRegion union(RectangleRegion rect1, RectangleRegion rect2) {
+        double minX = Math.min(rect1.min.x, rect2.min.x);
+        double minY = Math.min(rect1.min.y, rect2.min.y);
+
+        double maxX = Math.min(rect1.max.x, rect2.max.x);
+        double maxY = Math.min(rect1.max.y, rect2.max.y);
+
+        return new RectangleRegion(new Vec2(minX, minY), new Vec2(maxX, maxY));
+    }
+
+    /**
+     * Creates the smallest possible <b>CircleRegion</b>
+     * that fully encloses <b>circle1</b> and <b>circle2</b>.
+     *
+     * @param circle1 the first <b>SphereRegion</b> to be considered
+     * @param circle2 the second <b>SphereRegion</b> to be considered
+     * @return the <b>SphereRegion</b>
+     */
+    public static CircleRegion union(CircleRegion circle1, CircleRegion circle2) {
+        Vec2 deltaCentre = circle2.centre.subtract(circle1.centre);
+
+        double radius = (deltaCentre.length() + circle1.radius + circle2.radius) / 2.0;
+
+        Vec2 centre = circle1.centre.add(deltaCentre.normalize(radius - circle2.radius));
+
+        return new CircleRegion(centre, radius);
     }
 
     /**

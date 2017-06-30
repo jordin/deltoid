@@ -41,6 +41,7 @@ public class Vec3 implements Vector<Vec3> {
      * A unit <b>Vec3</b> parallel to the <b>x</b>-axis.
      */
     public static final Vec3 I_HAT = X_AXIS;
+
     /**
      * A unit <b>Vec3</b> parallel to the <b>y</b>-axis.
      */
@@ -139,7 +140,7 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     /**
-     * Compares this <b>Vec3</b> to the specified object.  The result is {@code
+     * Compares this <b>Vec3</b> to the specified object. The result is {@code
      * true} if and only if the argument is not {@code null} and is a <b>Vec3</b>
      * object that represents the same coordinates as this <b>Vec3</b>.
      *
