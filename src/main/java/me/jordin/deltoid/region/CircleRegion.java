@@ -73,7 +73,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
 
     /**
      * Returns {@code true} if the <b>CircleRegion</b> has
-     * a non-zero volume, {@code false} otherwise.
+     * a non-zero area, {@code false} otherwise.
      *
      * @return {@code true} if the <b>CircleRegion</b> exists, {@code false} otherwise
      */
