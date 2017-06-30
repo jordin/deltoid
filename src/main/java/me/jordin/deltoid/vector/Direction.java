@@ -39,6 +39,8 @@ public class Direction implements Vector<Direction> {
     @SerializedName("gamma")
     public final double gamma;
 
+    private double length = -1;
+
     /**
      * Constructs a newly allocated <b>Direction</b> object.
      *
@@ -53,28 +55,31 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the magnitude of the <b>Rotation</b>. Although the {@code length}
-     * is meaningless, it is useful to know that:
+     * Returns the magnitude of the <b>Direction</b>. Although the {@code length}
+     * is meaningless on its own, it is useful to know that:
      * <p>
      * <b>cos\u00B2(\u03B1) + cos\u00B2(\u03B2) + cos\u00B2(\u03B3) = 1.0</b>
+     * <p>
+     * One use case for this is to sort \u0394<b>Direction</b>s.
      *
-     * @return Nothing.
-     * @throws UnsupportedOperationException <b>Rotation</b> {@code length} is meaningless.
+     * @return the magnitude of the <b>Direction</b>
      */
     @Override
     public double length() {
-        throw new UnsupportedOperationException();
+        if (length == -1) {
+            length = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta + this.gamma * this.gamma);
+        }
+        return length;
     }
 
     /**
      * Returns the manhattan (taxicab) length of the <b>Direction</b>.
      *
-     * @return Nothing.
-     * @throws UnsupportedOperationException <b>Direction</b> {@code manhattan} is meaningless.
+     * @return the manhattan length of the <b>Direction</b>
      */
     @Override
     public double manhattan() {
-        throw new UnsupportedOperationException();
+        return this.alpha + this.beta + this.gamma;
     }
 
     /**

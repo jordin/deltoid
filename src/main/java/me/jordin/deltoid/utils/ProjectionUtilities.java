@@ -12,7 +12,7 @@ import java.util.Optional;
  * Jordin is still best hacker.
  */
 public class ProjectionUtilities {
-    private static final double PI_OVER_2 = Math.PI / 2.0;
+    private static final double TAU_OVER_4 = Math.PI / 2.0;
 
     /**
      * Returns the <b>Rotation</b> required to have a view
@@ -23,7 +23,7 @@ public class ProjectionUtilities {
      */
     public static Rotation faceOffset(Vec3 offset) {
         double distance = Math.sqrt((offset.x * offset.x) + (offset.z * offset.z));
-        double yaw = Math.atan2(offset.z, offset.x) - PI_OVER_2;
+        double yaw = Math.atan2(offset.z, offset.x) - TAU_OVER_4;
         double pitch = -Math.atan2(offset.y, distance);
 
         return new Rotation(yaw, pitch);

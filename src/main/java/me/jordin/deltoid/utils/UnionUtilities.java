@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class UnionUtilities {
 
     public static <R1, R2, V> List<V> overlap(Region<R1, V> region1, Region<R2, V> region2) {
-        // TODO: comment about collect
+        // Benchmarks I performed here showed that using a .collect() was as slow as this times 2.
         List<V> locations = new ArrayList<>();
 
         region1.enclosedPoints().stream()

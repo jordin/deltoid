@@ -37,6 +37,8 @@ public class Rotation implements Vector<Rotation> {
     @SerializedName("roll")
     public final double rotationRoll;
 
+    private double length = -1;
+
     /**
      * Constructs a newly allocated <b>Rotation</b> object.
      *
@@ -73,24 +75,28 @@ public class Rotation implements Vector<Rotation> {
 
     /**
      * Returns the magnitude of the <b>Rotation</b>.
+     * <p>
+     * One use case for this is to sort \u0394<b>Rotation</b>s.
      *
-     * @return Nothing.
-     * @throws UnsupportedOperationException <b>Rotation</b> {@code length} is meaningless.
+     * @return the magnitude of the <b>Rotation</b>
      */
     @Override
     public double length() {
-        throw new UnsupportedOperationException();
+        if (length == -1) {
+            length = Math.sqrt(this.rotationYaw * this.rotationYaw + this.rotationPitch * this.rotationPitch + this.rotationRoll * this.rotationRoll);
+        }
+        return length;
     }
 
+
     /**
-     * Returns the manhattan (taxicab) length of the <b>Rotation</b>.
+     * Returns the manhattan (taxicab) length of the <b>Direction</b>.
      *
-     * @return Nothing.
-     * @throws UnsupportedOperationException <b>Rotation</b> {@code manhattan} is meaningless.
+     * @return the manhattan length of the <b>Direction</b>
      */
     @Override
     public double manhattan() {
-        throw new UnsupportedOperationException();
+        return this.rotationYaw + this.rotationPitch + this.rotationRoll;
     }
 
     /**
