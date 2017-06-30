@@ -183,6 +183,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
      * Returns a new <b>RectangleRegion</b> translated by <b>offset</b>.
      *
+     * @param offset the amount to translate this <b>RectangleRegion</b> by.
      * @return the new <b>RectangleRegion</b>
      */
     @Override
@@ -193,6 +194,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
      * Returns a new <b>RectangleRegion</b> expanded by <b>expansion</b>.
      *
+     * @param expansion the amount to expand this <b>RectangleRegion</b> by.
      * @return the new <b>RectangleRegion</b>
      */
     public RectangleRegion expand(Vec2 expansion) { // TODO: preserve pos1 and pos2
@@ -205,11 +207,12 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
      * Returns a new <b>RectangleRegion</b> expanded in all directions by <b>amount</b>.
      *
+     * @param expansion the amount to expand this <b>RectangleRegion</b> by.
      * @return the new <b>RectangleRegion</b>
      */
-    public RectangleRegion expand(double amount) { // TODO: preserve pos1 and pos2
-        Vec2 newMin = new Vec2(min.x - amount, min.y - amount);
-        Vec2 newMax = new Vec2(max.x + amount, max.y + amount);
+    public RectangleRegion expand(double expansion) { // TODO: preserve pos1 and pos2
+        Vec2 newMin = new Vec2(min.x - expansion, min.y - expansion);
+        Vec2 newMax = new Vec2(max.x + expansion, max.y + expansion);
 
         return new RectangleRegion(newMin, newMax);
     }

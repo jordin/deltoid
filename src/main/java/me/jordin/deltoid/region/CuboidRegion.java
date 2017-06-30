@@ -196,6 +196,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     /**
      * Returns a new <b>CuboidRegion</b> translated by <b>offset</b>.
      *
+     * @param offset the amount to translate this <b>CuboidRegion</b> by.
      * @return the new <b>CuboidRegion</b>
      */
     @Override
@@ -206,6 +207,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     /**
      * Returns a new <b>CuboidRegion</b> expanded by <b>expansion</b>.
      *
+     * @param expansion the amount to expand this <b>CuboidRegion</b> by.
      * @return the new <b>CuboidRegion</b>
      */
     public CuboidRegion expand(Vec3 expansion) { // TODO: preserve pos1 and pos2
@@ -218,11 +220,12 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     /**
      * Returns a new <b>CuboidRegion</b> expanded in all directions by <b>amount</b>.
      *
+     * @param expansion the amount to expand this <b>CuboidRegion</b> by.
      * @return the new <b>CuboidRegion</b>
      */
-    public CuboidRegion expand(double amount) { // TODO: preserve pos1 and pos2
-        Vec3 newMin = new Vec3(min.x - amount, min.y - amount, min.z - amount);
-        Vec3 newMax = new Vec3(max.x + amount, max.y + amount, max.z + amount);
+    public CuboidRegion expand(double expansion) { // TODO: preserve pos1 and pos2
+        Vec3 newMin = new Vec3(min.x - expansion, min.y - expansion, min.z - expansion);
+        Vec3 newMax = new Vec3(max.x + expansion, max.y + expansion, max.z + expansion);
 
         return new CuboidRegion(newMin, newMax);
     }

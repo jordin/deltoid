@@ -455,8 +455,9 @@ public class Vec3 implements Vector<Vec3> {
     /**
      * Returns a <b>Vec3</b> (magnitude: {@code length}) that is parallel to {@code yaw} and {@code pitch} (degrees).
      *
-     * @param yaw   the angle about the y-axis.
-     * @param pitch the angle above the horizon.
+     * @param length the desired length of the resultant <b>Vec3</b>.
+     * @param yaw    the angle about the y-axis.
+     * @param pitch  the angle above the horizon.
      * @return the <b>Vec3</b>
      */
     public static Vec3 fromAnglesDeg(double length, double yaw, double pitch) {
@@ -466,8 +467,9 @@ public class Vec3 implements Vector<Vec3> {
     /**
      * Returns a <b>Vec3</b> (magnitude: {@code length}) that is parallel to {@code yaw} and {@code pitch} (radians).
      *
-     * @param yaw   the angle about the y-axis.
-     * @param pitch the angle above the horizon.
+     * @param length the desired length of the resultant <b>Vec3</b>.
+     * @param yaw    the angle about the y-axis.
+     * @param pitch  the angle above the horizon.
      * @return the <b>Vec3</b>
      */
     public static Vec3 fromAngles(double length, double yaw, double pitch) {
