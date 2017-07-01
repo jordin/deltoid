@@ -1,6 +1,7 @@
 package me.jordin.deltoid.utils;
 
 import me.jordin.deltoid.vector.Rotation;
+import me.jordin.deltoid.vector.Vec2;
 import me.jordin.deltoid.vector.Vec3;
 
 /**
@@ -9,6 +10,30 @@ import me.jordin.deltoid.vector.Vec3;
  */
 public class MathUtilities {
     private static final double TAU = 2 * Math.PI;
+
+    /**
+     * Returns a <b>Vec2</b> of the weighted average of
+     * <b>previous</b> and <b>current</b>, using a weight of <b>ratio</b>.
+     *
+     * @param previous the first <b>Vec2</b> to be considered.
+     * @param current  the second <b>Vec2</b> to be considered.
+     * @param ratio    the weight for the weighted average.
+     * @return the interpolated <b>Vec2</b>
+     */
+    public static Vec2 interpolate(Vec2 previous, Vec2 current, double ratio) {
+        if (current == null && previous == null) {
+            return Vec2.ORIGIN;
+        }
+        if (previous == null) {
+            return current;
+        }
+        if (current == null) {
+            return previous;
+        }
+
+        return previous.add(current.subtract(previous).scale(ratio));
+    }
+
 
     /**
      * Returns a <b>Vec3</b> of the weighted average of
