@@ -84,6 +84,18 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated <b>PhysicsObject</b> object,
+     * with an initial <b>rotation</b> of <b>0.0</b>.
+     *
+     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
+     * @param velocity        the initial velocity for the <b>PhysicsObject</b>.
+     * @param acceleration    the initial acceleration for the <b>PhysicsObject</b>.
+     */
+    public PhysicsObject(Vec3 initialPosition, Vec3 velocity, Vec3 acceleration) {
+        this(initialPosition, Rotation.ORIGIN, velocity, acceleration);
+    }
+
+    /**
+     * Constructs a newly allocated <b>PhysicsObject</b> object,
      * with an initial <b>acceleration</b> of <b>0.0</b>.
      *
      * @param initialPosition the initial location for the <b>PhysicsObject</b>.
