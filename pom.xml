@@ -6,7 +6,7 @@
 
     <groupId>me.jordin</groupId>
     <artifactId>deltoid</artifactId>
-    <version>0.4.3</version>
+    <version>0.4.6</version>
 
 
     <build>
