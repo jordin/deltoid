@@ -149,15 +149,14 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Returns a scalar multiple of this <b>Vector</b>.
+     * Returns a scalar multiple of this <b>Rotation</b>.
      *
-     * @param scaleFactor the desired scale factor for the <b>Vector</b>.
-     * @return Nothing.
-     * @throws UnsupportedOperationException <b>Rotation</b> {@code scale} is meaningless.
+     * @param scaleFactor the desired scale factor for the <b>Rotation</b>.
+     * @return The <b>Rotation</b>.
      */
     @Override
     public Rotation scale(double scaleFactor) {
-        throw new UnsupportedOperationException();
+        return new Rotation(this.rotationYaw * scaleFactor, this.rotationPitch * scaleFactor, this.rotationRoll * scaleFactor);
     }
 
     /**
