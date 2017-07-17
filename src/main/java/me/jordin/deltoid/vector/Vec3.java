@@ -480,4 +480,9 @@ public class Vec3 implements Vector<Vec3> {
 
         return new Vec3(x * hScale * length, Math.sin(-pitch) * length, z * hScale * length);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Vec3(x=%f, y=%f, z=%f)", this.x, this.y, this.z);
+    }
 }
