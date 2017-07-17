@@ -485,4 +485,18 @@ public class Vec3 implements Vector<Vec3> {
     public String toString() {
         return String.format("Vec3(x=%f, y=%f, z=%f)", this.x, this.y, this.z);
     }
+
+    /**
+     * @see Vec3#Vec3(double, double, double)
+     */
+    public static Vec3 of(double x, double y, double z) {
+        return new Vec3(x, y, z);
+    }
+
+    /**
+     * @see Vec3#Vec3(double, double)
+     */
+    public static Vec3 of(double x, double y) {
+        return new Vec3(x, y);
+    }
 }
