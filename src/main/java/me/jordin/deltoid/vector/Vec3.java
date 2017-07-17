@@ -487,6 +487,12 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     /**
+     * Construct and return a newly-allocated Vec3 object.
+     *
+     * @param x the magnitude of the <b>x</b>-component of the <b>Vec3</b>.
+     * @param y the magnitude of the <b>y</b>-component of the <b>Vec3</b>.
+     * @param z the magnitude of the <b>z</b>-component of the <b>Vec3</b>.
+     * @return new Vec3 instance
      * @see Vec3#Vec3(double, double, double)
      */
     public static Vec3 of(double x, double y, double z) {
@@ -494,6 +500,12 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     /**
+     * Construct and return a newly-allocated Vec3 object,
+     *
+     * with a <b>z</b>-coordinate of <b>0.0</b>.
+     * @param x the magnitude of the <b>x</b>-component of the <b>Vec3</b>.
+     * @param y the magnitude of the <b>y</b>-component of the <b>Vec3</b>.
+     * @return new Vec3 instance
      * @see Vec3#Vec3(double, double)
      */
     public static Vec3 of(double x, double y) {
