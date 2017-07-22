@@ -30,7 +30,7 @@ public class Line {
     public final Vec3 end;
 
     /**
-     * The difference between the <b>end</b> amd <b>start</b> of this <b>Line</b>.
+     * The difference between the <b>end</b> and <b>start</b> of this <b>Line</b>.
      * Calculated by <b>delta = end - start</b>
      *
      * @serial
