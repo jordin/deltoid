@@ -126,7 +126,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public double manhattan() {
-        return x + y + z;
+        return Math.abs(x) + Math.abs(y) + Math.abs(z);
     }
 
     /**
