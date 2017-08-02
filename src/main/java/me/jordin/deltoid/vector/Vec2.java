@@ -95,7 +95,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public double manhattan() {
-        return this.x + this.y;
+        return Math.abs(this.x) + Math.abs(this.y);
     }
 
     /**
