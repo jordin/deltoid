@@ -39,7 +39,7 @@ public class Direction implements Vector<Direction> {
     @SerializedName("gamma")
     public final double gamma;
 
-    private double length = -1;
+    private volatile double length = -1;
 
     /**
      * Constructs a newly allocated <b>Direction</b> object.

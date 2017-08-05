@@ -37,7 +37,7 @@ public class Rotation implements Vector<Rotation> {
     @SerializedName("roll")
     public final double rotationRoll;
 
-    private double length = -1;
+    private volatile double length = -1;
 
     /**
      * Constructs a newly allocated <b>Rotation</b> object.
