@@ -102,6 +102,15 @@ public class Vec3 implements Vector<Vec3> {
         this(x, y, 0);
     }
 
+    /**
+     * Constructs a newly allocated <b>Vec3</b> object with coordinates <b>[0, 0, 0]</b>
+     */
+    public Vec3() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
     private void calculateLength() {
         if (length == -1) {
             length = Math.sqrt(x * x + y * y + z * z);

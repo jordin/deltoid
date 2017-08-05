@@ -71,6 +71,14 @@ public class Vec2 implements Vector<Vec2> {
         this.y = y;
     }
 
+    /**
+     * Constructs a newly allocated <b>Vec2</b> object with coordinates <b>[0, 0]</b>
+     */
+    public Vec2() {
+        this.x = 0;
+        this.y = 0;
+    }
+
     private void calculateLength() {
         if (length == -1) {
             length = Math.sqrt(x * x + y * y);

@@ -55,6 +55,15 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
+     * Constructs a newly allocated <b>Direction</b> object with coordinates <b>[0, 0, 0]</b>
+     */
+    public Direction() {
+        this.alpha = 0;
+        this.beta = 0;
+        this.gamma = 0;
+    }
+
+    /**
      * Returns the magnitude of the <b>Direction</b>. Although the {@code length}
      * is meaningless on its own, it is useful to know that:
      * <p>

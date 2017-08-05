@@ -74,6 +74,15 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
+     * Constructs a newly allocated <b>Rotation</b> object with coordinates <b>[0, 0, 0]</b>
+     */
+    public Rotation() {
+        this.rotationYaw = 0;
+        this.rotationPitch = 0;
+        this.rotationRoll = 0;
+    }
+
+    /**
      * Returns the magnitude of the <b>Rotation</b>.
      * <p>
      * One use case for this is to sort \u0394<b>Rotation</b>s.
