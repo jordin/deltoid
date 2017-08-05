@@ -58,7 +58,7 @@ public class Vec2 implements Vector<Vec2> {
     @SerializedName("y")
     public final double y;
 
-    private double length = -1;
+    private volatile double length = -1;
 
     /**
      * Constructs a newly allocated <b>Vec2</b> object.

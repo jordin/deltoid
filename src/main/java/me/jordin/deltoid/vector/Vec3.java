@@ -76,7 +76,7 @@ public class Vec3 implements Vector<Vec3> {
     @SerializedName("z")
     public final double z;
 
-    private double length = -1;
+    private volatile double length = -1;
 
     /**
      * Constructs a newly allocated <b>Vec3</b> object.
