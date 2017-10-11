@@ -219,4 +219,16 @@ public class Vec2 implements Vector<Vec2> {
     public Vec2 reverse() {
         return new Vec2(-x, -y);
     }
+    
+    /**
+     * Construct and return a newly-allocated Vec2 object.
+     *
+     * @param x the magnitude of the <b>x</b>-component of the <b>Vec2</b>
+     * @param y the magnitude of the <b>y</b>-component of the <b>Vec2</b>
+     * @return new Vec2 instance
+     * @see Vec2#Vec2(double, double)
+     */
+    public static Vec2 of(double x, double y) {
+        return new Vec2(x, y);
+    }
 }
