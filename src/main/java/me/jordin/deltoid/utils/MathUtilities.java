@@ -193,6 +193,12 @@ public class MathUtilities {
         return angle;
     }
 
+    /**
+     * Returns the result of <b>floor(value)</b> as an integer.
+     *
+     * @param value the value to floor
+     * @return the result of floor(value) as an int primitive.
+     */
     public static int floor(double value) {
         return (int) Math.floor(value);
     }
