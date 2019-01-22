@@ -1,19 +1,15 @@
-package me.jordin.deltoid.vector;
+package in.jord.deltoid.vector;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Jordin on 6/23/2017.
- * Jordin is still best hacker.
- */
 public class Direction implements Vector<Direction> {
     /**
-     * A <b>Direction</b> with coordinates <b>[0, 0, 0]</b>.
+     * A {@link Direction} with coordinates <b>[0, 0, 0]</b>.
      */
     public static final Direction ORIGIN = new Direction(0, 0, 0);
 
     /**
-     * The magnitude of the <b>alpha (\u03B1)</b> angle of the <b>Direction</b>.
+     * The magnitude of the <b>alpha (\u03B1)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>x</b>-axis.
      *
      * @serial
@@ -22,7 +18,7 @@ public class Direction implements Vector<Direction> {
     public final double alpha;
 
     /**
-     * The magnitude of the <b>beta (\u03B2)</b> angle of the <b>Direction</b>.
+     * The magnitude of the <b>beta (\u03B2)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>y</b>-axis.
      *
      * @serial
@@ -31,7 +27,7 @@ public class Direction implements Vector<Direction> {
     public final double beta;
 
     /**
-     * The magnitude of the <b>gamma (\u03B3)</b> angle of the <b>Direction</b>.
+     * The magnitude of the <b>gamma (\u03B3)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>z</b>-axis.
      *
      * @serial
@@ -42,10 +38,10 @@ public class Direction implements Vector<Direction> {
     private volatile double length = -1;
 
     /**
-     * Constructs a newly allocated <b>Direction</b> object.
+     * Constructs a newly allocated {@link Direction} object.
      *
      * @param alpha <b>(\u03B1)</b> the magnitude of the angle relative to the <b>x</b>-axis.
-     * @param beta  <b>\u03B2)</b> the magnitude of the angle relative to the <b>y</b>-axis.
+     * @param beta  <b>(\u03B2)</b> the magnitude of the angle relative to the <b>y</b>-axis.
      * @param gamma <b>(\u03B3)</b> the magnitude of the angle relative to the <b>z</b>-axis.
      */
     public Direction(double alpha, double beta, double gamma) {
@@ -55,7 +51,7 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Constructs a newly allocated <b>Direction</b> object with coordinates <b>[0, 0, 0]</b>
+     * Constructs a newly allocated {@link Direction} object with coordinates <b>[0, 0, 0]</b>
      */
     public Direction() {
         this.alpha = 0;
@@ -64,14 +60,14 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the magnitude of the <b>Direction</b>. Although the {@code length}
+     * Returns the magnitude of the {@link Direction}. Although the {@code length}
      * is meaningless on its own, it is useful to know that:
      * <p>
      * <b>cos\u00B2(\u03B1) + cos\u00B2(\u03B2) + cos\u00B2(\u03B3) = 1.0</b>
      * <p>
-     * One use case for this is to sort \u0394<b>Direction</b>s.
+     * One use case for this is to sort \u0394{@link Direction}s.
      *
-     * @return the magnitude of the <b>Direction</b>
+     * @return the magnitude of the {@link Direction}
      */
     @Override
     public double length() {
@@ -82,9 +78,9 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the manhattan (taxicab) length of the <b>Direction</b>.
+     * Returns the manhattan (taxicab) length of the {@link Direction}.
      *
-     * @return the manhattan length of the <b>Direction</b>
+     * @return the manhattan length of the {@link Direction}
      */
     @Override
     public double manhattan() {
@@ -92,9 +88,9 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Breaks this <b>Direction</b> into its underlying components.
+     * Breaks this {@link Direction} into its underlying components.
      *
-     * @return the components of this <b>Direction</b>
+     * @return the components of this {@link Direction}
      */
     @Override
     public double[] components() {
@@ -102,13 +98,13 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Compares this <b>Direction</b> to the specified object.  The result is {@code
-     * true} if and only if the argument is not {@code null} and is a <b>Direction</b>
-     * object that represents the same coordinate direction angles as this <b>Direction</b>.
+     * Compares this {@link Direction} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link Direction}
+     * object that represents the same coordinate direction angles as this {@link Direction}.
      *
-     * @param other the object to compare this <b>Direction</b> against
-     * @return {@code true} if the given object represents a <b>Direction</b>
-     * equivalent to this <b>Direction</b>, {@code false} otherwise
+     * @param other the object to compare this {@link Direction} against
+     * @return {@code true} if the given object represents a {@link Direction}
+     * equivalent to this {@link Direction}, {@code false} otherwise
      */
     @Override
     public boolean equals(Object other) {
@@ -119,10 +115,10 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the unit <b>Direction</b> parallel to this <b>Direction</b>.
+     * Returns the unit {@link Direction} parallel to this {@link Direction}.
      *
      * @return Nothing
-     * @throws UnsupportedOperationException <b>Direction</b> {@code normalize} is meaningless.
+     * @throws UnsupportedOperationException {@link Direction} {@code normalize} is meaningless.
      */
     @Override
     public Direction normalize() {
@@ -130,11 +126,11 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns a scalar multiple of the unit <b>Direction</b> parallel to this <b>Direction</b>.
+     * Returns a scalar multiple of the unit {@link Direction} parallel to this {@link Direction}.
      *
-     * @param length the desired length of the <b>Direction</b>.
+     * @param length the desired length of the {@link Direction}.
      * @return Nothing.
-     * @throws UnsupportedOperationException <b>Direction</b> {@code normalize} is meaningless.
+     * @throws UnsupportedOperationException {@link Direction} {@code normalize} is meaningless.
      */
     @Override
     public Direction normalize(double length) {
@@ -142,11 +138,11 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns a scalar multiple of this <b>Direction</b>.
+     * Returns a scalar multiple of this {@link Direction}.
      *
-     * @param scaleFactor the desired scale factor for the <b>Direction</b>.
+     * @param scaleFactor the desired scale factor for the {@link Direction}.
      * @return Nothing.
-     * @throws UnsupportedOperationException <b>Direction</b> {@code scale} is meaningless.
+     * @throws UnsupportedOperationException {@link Direction} {@code scale} is meaningless.
      */
     @Override
     public Direction scale(double scaleFactor) {
@@ -154,10 +150,10 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the <b>Direction</b> that is the sum of this <b>Direction</b> and {@code addend}.
+     * Returns the {@link Direction} that is the sum of this {@link Direction} and {@code addend}.
      *
-     * @param addend the <b>Direction</b> to be added to this <b>Direction</b>.
-     * @return the <b>Direction</b>
+     * @param addend the {@link Direction} to be added to this {@link Direction}.
+     * @return the {@link Direction}
      */
     @Override
     public Direction add(Direction addend) {
@@ -165,10 +161,10 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the <b>Direction</b> that is the difference of this <b>Direction</b> and {@code subtrahend}.
+     * Returns the {@link Direction} that is the difference of this {@link Direction} and {@code subtrahend}.
      *
-     * @param subtrahend the <b>Direction</b> to be subtracted from this <b>Direction</b>.
-     * @return the <b>Direction</b>
+     * @param subtrahend the {@link Direction} to be subtracted from this {@link Direction}.
+     * @return the {@link Direction}
      */
     @Override
     public Direction subtract(Direction subtrahend) {
@@ -176,9 +172,9 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the <b>Direction</b> that is this <b>Direction</b> with floored coordinates.
+     * Returns the {@link Direction} that is this {@link Direction} with floored coordinates.
      *
-     * @return the <b>Direction</b>
+     * @return the {@link Direction}
      */
     @Override
     public Direction floor() {
@@ -186,9 +182,9 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the <b>Direction</b> that is this <b>Direction</b> with ceilinged coordinates.
+     * Returns the {@link Direction} that is this {@link Direction} with ceilinged coordinates.
      *
-     * @return the <b>Direction</b>
+     * @return the {@link Direction}
      */
     @Override
     public Direction ceil() {
@@ -196,9 +192,9 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
-     * Returns the <b>Direction</b> that is anti-parallel to this <b>Direction</b>.
+     * Returns the {@link Direction} that is anti-parallel to this {@link Direction}.
      *
-     * @return the <b>Direction</b>
+     * @return the {@link Direction}
      */
     @Override
     public Direction reverse() {

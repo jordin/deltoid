@@ -1,24 +1,20 @@
-package me.jordin.deltoid.utils;
+package in.jord.deltoid.utils;
 
-import me.jordin.deltoid.vector.Rotation;
-import me.jordin.deltoid.vector.Vec2;
-import me.jordin.deltoid.vector.Vec3;
+import in.jord.deltoid.vector.Rotation;
+import in.jord.deltoid.vector.Vec2;
+import in.jord.deltoid.vector.Vec3;
 
-/**
- * Created by Jordin on 6/20/2017.
- * Jordin is still best hacker.
- */
 public class MathUtilities {
     private static final double TAU = 2 * Math.PI;
 
     /**
-     * Returns a <b>Vec2</b> of the weighted average of
+     * Returns a {@link Vec2} of the weighted average of
      * <b>previous</b> and <b>current</b>, using a weight of <b>ratio</b>.
      *
-     * @param previous the first <b>Vec2</b> to be considered.
-     * @param current  the second <b>Vec2</b> to be considered.
+     * @param previous the first {@link Vec2} to be considered.
+     * @param current  the second {@link Vec2} to be considered.
      * @param ratio    the weight for the weighted average.
-     * @return the interpolated <b>Vec2</b>
+     * @return the interpolated {@link Vec2}
      */
     public static Vec2 interpolate(Vec2 previous, Vec2 current, double ratio) {
         if (current == null && previous == null) {
@@ -36,13 +32,13 @@ public class MathUtilities {
 
 
     /**
-     * Returns a <b>Vec3</b> of the weighted average of
+     * Returns a {@link Vec3} of the weighted average of
      * <b>previous</b> and <b>current</b>, using a weight of <b>ratio</b>.
      *
-     * @param previous the first <b>Vec3</b> to be considered.
-     * @param current  the second <b>Vec3</b> to be considered.
+     * @param previous the first {@link Vec3} to be considered.
+     * @param current  the second {@link Vec3} to be considered.
      * @param ratio    the weight for the weighted average.
-     * @return the interpolated <b>Vec3</b>
+     * @return the interpolated {@link Vec3}
      */
     public static Vec3 interpolate(Vec3 previous, Vec3 current, double ratio) {
         if (current == null && previous == null) {
@@ -59,13 +55,13 @@ public class MathUtilities {
     }
 
     /**
-     * Returns a <b>Rotation</b> of the weighted average of
+     * Returns a {@link Rotation} of the weighted average of
      * <b>previous</b> and <b>current</b>, using a weight of <b>ratio</b>.
      *
-     * @param previous the first <b>Rotation</b> to be considered.
-     * @param current  the second <b>Rotation</b> to be considered.
+     * @param previous the first {@link Rotation} to be considered.
+     * @param current  the second {@link Rotation} to be considered.
      * @param ratio    the weight for the weighted average.
-     * @return the interpolated <b>Rotation</b>
+     * @return the interpolated {@link Rotation}
      */
     public static Rotation interpolate(Rotation previous, Rotation current, double ratio) {
         if (current == null && previous == null) {
@@ -84,13 +80,13 @@ public class MathUtilities {
     }
 
     /**
-     * Returns a <b>Rotation</b> of the weighted average of
+     * Returns a {@link Rotation} of the weighted average of
      * <b>previous</b> and <b>current</b>, using a weight of <b>ratio</b>.
      *
-     * @param previous the first <b>Rotation</b> to be considered.
-     * @param current  the second <b>Rotation</b> to be considered.
+     * @param previous the first {@link Rotation} to be considered.
+     * @param current  the second {@link Rotation} to be considered.
      * @param ratio    the weight for the weighted average.
-     * @return the interpolated <b>Rotation</b>
+     * @return the interpolated {@link Rotation}
      */
     public static Rotation interpolateDeg(Rotation previous, Rotation current, double ratio) {
         if (current == null && previous == null) {
@@ -123,7 +119,7 @@ public class MathUtilities {
 
     /**
      * Returns a weighted average of <b>previousRotation</b>
-     * and <b>rotation</b>, using a weight of <b>ratio</b>.
+     * and {@link Rotation}, using a weight of <b>ratio</b>.
      *
      * @param previousRotation the first rotation to be considered.
      * @param rotation         the second rotation to be considered.
@@ -139,7 +135,7 @@ public class MathUtilities {
 
     /**
      * Returns a weighted average of <b>previousRotation</b>
-     * and <b>rotation</b>, using a weight of <b>ratio</b>.
+     * and {@link Rotation}, using a weight of <b>ratio</b>.
      *
      * @param previousRotation the first rotation to be considered.
      * @param rotation         the second rotation to be considered.

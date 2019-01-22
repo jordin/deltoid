@@ -1,25 +1,21 @@
-package me.jordin.deltoid.region;
+package in.jord.deltoid.region;
 
 import com.google.gson.annotations.SerializedName;
-import me.jordin.deltoid.utils.MathUtilities;
-import me.jordin.deltoid.utils.UnionUtilities;
-import me.jordin.deltoid.vector.Vec2;
+import in.jord.deltoid.utils.UnionUtilities;
+import in.jord.deltoid.vector.Vec2;
+import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Jordin on 6/29/2017.
- * Jordin is still best hacker.
- */
 public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
-     * A <b>RectangleRegion</b> with coordinates <b>[0, 0]</b> and area <b>a = 0.0</b>.
+     * A {@link RectangleRegion} with coordinates <b>[0, 0]</b> and area <b>a = 0.0</b>.
      */
     public static final RectangleRegion ORIGIN = new RectangleRegion(Vec2.ORIGIN, Vec2.ORIGIN);
 
     /**
-     * The lower bounds of this <b>RectangleRegion</b>.
+     * The lower bounds of this {@link RectangleRegion}.
      * Calculated by <b>min = Math.min(<i>pos1</i>, <i>pos2</i>)</b>
      *
      * @serial
@@ -28,7 +24,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public final Vec2 min;
 
     /**
-     * The upper bounds of this <b>RectangleRegion</b>.
+     * The upper bounds of this {@link RectangleRegion}.
      * Calculated by <b>max = Math.max(<i>pos1</i>, <i>pos2</i>)</b>.
      *
      * @serial
@@ -37,7 +33,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public final Vec2 max;
 
     /**
-     * The original first position of this <b>RectangleRegion</b>.
+     * The original first position of this {@link RectangleRegion}.
      *
      * @serial
      */
@@ -45,7 +41,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public final Vec2 pos1;
 
     /**
-     * The original second position of this <b>RectangleRegion</b>.
+     * The original second position of this {@link RectangleRegion}.
      *
      * @serial
      */
@@ -53,7 +49,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public final Vec2 pos2;
 
     /**
-     * The size of this <b>RectangleRegion</b>.
+     * The size of this {@link RectangleRegion}.
      * Calculated by <b>dimensions = max - min</b>
      *
      * @serial
@@ -62,7 +58,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public final Vec2 dimensions;
 
     /**
-     * The total surface area of this <b>RectangleRegion</b>.
+     * The total surface area of this {@link RectangleRegion}.
      *
      * @serial
      */
@@ -70,17 +66,17 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     private final double surfaceArea;
 
     /**
-     * A <b>List</b> of all of the <b>Vec2</b>s enclosed in this <b>RectangleRegion</b>.
+     * A {@link List} of all of the {@link Vec2}s enclosed in this {@link RectangleRegion}.
      *
      * @serial
      */
     private List<Vec2> enclosedPoints;
 
     /**
-     * Constructs a newly allocated <b>RectangleRegion</b> object.
+     * Constructs a newly allocated {@link RectangleRegion} object.
      *
-     * @param pos1 the first position of this <b>RectangleRegion</b>.
-     * @param pos2 the second position of this <b>RectangleRegion</b>.
+     * @param pos1 the first position of this {@link RectangleRegion}.
+     * @param pos2 the second position of this {@link RectangleRegion}.
      */
     public RectangleRegion(Vec2 pos1, Vec2 pos2) {
         this.pos1 = pos1;
@@ -95,7 +91,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns the total volume enclosed in this <b>RectangleRegion</b>.
+     * Returns the total volume enclosed in this {@link RectangleRegion}.
      *
      * @return <b>0.0</b>, Rectangles do not have a volume!
      */
@@ -105,9 +101,9 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns the total area of this <b>RectangleRegion</b>.
+     * Returns the total area of this {@link RectangleRegion}.
      *
-     * @return the total area of this <b>RectangleRegion</b>
+     * @return the total area of this {@link RectangleRegion}
      */
     @Override
     public double surfaceArea() {
@@ -115,10 +111,10 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns {@code true} if the <b>RectangleRegion</b> has
+     * Returns {@code true} if the {@link RectangleRegion} has
      * a non-zero area, {@code false} otherwise.
      *
-     * @return {@code true} if the <b>RectangleRegion</b> exists, {@code false} otherwise
+     * @return {@code true} if the {@link RectangleRegion} exists, {@code false} otherwise
      */
     @Override
     public boolean exists() {
@@ -126,11 +122,11 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns {@code true} if the <b>RectangleRegion</b>
+     * Returns {@code true} if the {@link RectangleRegion}
      * contains <b>location</b> {@code false} otherwise.
      *
-     * @param location the <b>Vec2</b>to consider.
-     * @return {@code true} if the <b>RectangleRegion</b> contains <b>location</b>, {@code false} otherwise
+     * @param location the {@link Vec2}to consider.
+     * @return {@code true} if the {@link RectangleRegion} contains <b>location</b>, {@code false} otherwise
      */
     @Override
     public boolean contains(Vec2 location) {
@@ -139,9 +135,9 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns a <b>List</b> of all of the <b>Vec2</b>s enclosed in this <b>RectangleRegion</b>.
+     * Returns a {@link List} of all of the {@link Vec2}s enclosed in this {@link RectangleRegion}.
      *
-     * @return the <b>List</b> of the <b>Vec2</b>s
+     * @return the {@link List} of the {@link Vec2}s
      */
     @Override
     public List<Vec2> enclosedPoints() {
@@ -169,11 +165,11 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Creates the smallest possible <b>RectangleRegion</b>
-     * that fully encloses this <b>RectangleRegion</b> and <b>RectangleRegion</b>.
+     * Creates the smallest possible {@link RectangleRegion}
+     * that fully encloses this {@link RectangleRegion} and <b>region</b>.
      *
-     * @param region the other <b>RectangleRegion</b> to be considered
-     * @return the <b>RectangleRegion</b>
+     * @param region the other {@link RectangleRegion} to be considered
+     * @return the {@link RectangleRegion}
      */
     @Override
     public RectangleRegion union(RectangleRegion region) {
@@ -181,10 +177,10 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns a new <b>RectangleRegion</b> translated by <b>offset</b>.
+     * Returns a new {@link RectangleRegion} translated by <b>offset</b>.
      *
-     * @param offset the amount to translate this <b>RectangleRegion</b> by.
-     * @return the new <b>RectangleRegion</b>
+     * @param offset the amount to translate this {@link RectangleRegion} by.
+     * @return the new {@link RectangleRegion}
      */
     @Override
     public RectangleRegion offset(Vec2 offset) {
@@ -192,10 +188,10 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns a new <b>RectangleRegion</b> expanded by <b>expansion</b>.
+     * Returns a new {@link RectangleRegion} expanded by <b>expansion</b>.
      *
-     * @param expansion the amount to expand this <b>RectangleRegion</b> by.
-     * @return the new <b>RectangleRegion</b>
+     * @param expansion the amount to expand this {@link RectangleRegion} by.
+     * @return the new {@link RectangleRegion}
      */
     public RectangleRegion expand(Vec2 expansion) { // TODO: preserve pos1 and pos2
         Vec2 newMin = new Vec2(min.x - expansion.x, min.y - expansion.y);
@@ -205,10 +201,10 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     }
 
     /**
-     * Returns a new <b>RectangleRegion</b> expanded in all directions by <b>amount</b>.
+     * Returns a new {@link RectangleRegion} expanded in all directions by <b>amount</b>.
      *
-     * @param expansion the amount to expand this <b>RectangleRegion</b> by.
-     * @return the new <b>RectangleRegion</b>
+     * @param expansion the amount to expand this {@link RectangleRegion} by.
+     * @return the new {@link RectangleRegion}
      */
     public RectangleRegion expand(double expansion) { // TODO: preserve pos1 and pos2
         Vec2 newMin = new Vec2(min.x - expansion, min.y - expansion);

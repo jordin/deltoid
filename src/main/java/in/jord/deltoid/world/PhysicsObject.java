@@ -1,18 +1,14 @@
-package me.jordin.deltoid.world;
+package in.jord.deltoid.world;
 
 import com.google.gson.annotations.SerializedName;
-import me.jordin.deltoid.utils.MathUtilities;
-import me.jordin.deltoid.vector.Rotation;
-import me.jordin.deltoid.vector.Vec3;
+import in.jord.deltoid.utils.MathUtilities;
+import in.jord.deltoid.vector.Rotation;
+import in.jord.deltoid.vector.Vec3;
 
-/**
- * Created by Jordin on 6/20/2017.
- * Jordin is still best hacker.
- */
 public class PhysicsObject {
     public static final PhysicsObject ORIGIN = new PhysicsObject();
     /**
-     * The <b>previous position</b> of the <b>PhysicsObject</b>.
+     * The <b>previous position</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -20,7 +16,7 @@ public class PhysicsObject {
     private Vec3 previousPosition;
 
     /**
-     * The <b>current position</b> of the <b>PhysicsObject</b>.
+     * The <b>current position</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -28,7 +24,7 @@ public class PhysicsObject {
     private Vec3 position;
 
     /**
-     * The <b>previous rotation</b> of the <b>PhysicsObject</b>.
+     * The <b>previous rotation</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -36,7 +32,7 @@ public class PhysicsObject {
     private Rotation previousRotation;
 
     /**
-     * The <b>current rotation</b> of the <b>PhysicsObject</b>.
+     * The <b>current rotation</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -44,7 +40,7 @@ public class PhysicsObject {
     private Rotation rotation;
 
     /**
-     * The <b>velocity</b> of the <b>PhysicsObject</b>.
+     * The <b>velocity</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -52,7 +48,7 @@ public class PhysicsObject {
     private Vec3 velocity;
 
     /**
-     * The <b>constant acceleration</b> of the <b>PhysicsObject</b>.
+     * The <b>constant acceleration</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -60,7 +56,7 @@ public class PhysicsObject {
     private Vec3 acceleration;
 
     /**
-     * The <b>mass</b> of the <b>PhysicsObject</b>.
+     * The <b>mass</b> of the {@link PhysicsObject}.
      *
      * @serial
      */
@@ -68,12 +64,12 @@ public class PhysicsObject {
     private double mass = 0;
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object.
+     * Constructs a newly allocated {@link PhysicsObject} object.
      *
-     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
-     * @param initialRotation the initial rotation for the <b>PhysicsObject</b>.
-     * @param velocity        the initial velocity for the <b>PhysicsObject</b>.
-     * @param acceleration    the initial acceleration for the <b>PhysicsObject</b>.
+     * @param initialPosition the initial location for the {@link PhysicsObject}.
+     * @param initialRotation the initial rotation for the {@link PhysicsObject}.
+     * @param velocity        the initial velocity for the {@link PhysicsObject}.
+     * @param acceleration    the initial acceleration for the {@link PhysicsObject}.
      */
     public PhysicsObject(Vec3 initialPosition, Rotation initialRotation, Vec3 velocity, Vec3 acceleration) {
         this.previousPosition = this.position = initialPosition;
@@ -83,54 +79,54 @@ public class PhysicsObject {
     }
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object,
-     * with an initial <b>rotation</b> of <b>0.0</b>.
+     * Constructs a newly allocated {@link PhysicsObject} object,
+     * with an initial {@link Rotation} of <b>0.0</b>.
      *
-     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
-     * @param velocity        the initial velocity for the <b>PhysicsObject</b>.
-     * @param acceleration    the initial acceleration for the <b>PhysicsObject</b>.
+     * @param initialPosition the initial location for the {@link PhysicsObject}.
+     * @param velocity        the initial velocity for the {@link PhysicsObject}.
+     * @param acceleration    the initial acceleration for the {@link PhysicsObject}.
      */
     public PhysicsObject(Vec3 initialPosition, Vec3 velocity, Vec3 acceleration) {
         this(initialPosition, Rotation.ORIGIN, velocity, acceleration);
     }
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object,
+     * Constructs a newly allocated {@link PhysicsObject} object,
      * with an initial <b>acceleration</b> of <b>0.0</b>.
      *
-     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
-     * @param initialRotation the initial rotation for the <b>PhysicsObject</b>.
-     * @param velocity        the initial velocity for the <b>PhysicsObject</b>.
+     * @param initialPosition the initial location for the {@link PhysicsObject}.
+     * @param initialRotation the initial rotation for the {@link PhysicsObject}.
+     * @param velocity        the initial velocity for the {@link PhysicsObject}.
      */
     public PhysicsObject(Vec3 initialPosition, Rotation initialRotation, Vec3 velocity) {
         this(initialPosition, initialRotation, velocity, Vec3.ORIGIN);
     }
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object,
+     * Constructs a newly allocated {@link PhysicsObject} object,
      * with an initial <b>velocity</b> and <b>acceleration</b> of <b>0.0</b>.
      *
-     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
-     * @param initialRotation the initial rotation for the <b>PhysicsObject</b>.
+     * @param initialPosition the initial location for the {@link PhysicsObject}.
+     * @param initialRotation the initial rotation for the {@link PhysicsObject}.
      */
     public PhysicsObject(Vec3 initialPosition, Rotation initialRotation) {
         this(initialPosition, initialRotation, Vec3.ORIGIN, Vec3.ORIGIN);
     }
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object,
-     * with an initial <b>rotation</b>, <b>velocity</b>,
+     * Constructs a newly allocated {@link PhysicsObject} object,
+     * with an initial {@link Rotation}, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      *
-     * @param initialPosition the initial location for the <b>PhysicsObject</b>.
+     * @param initialPosition the initial location for the {@link PhysicsObject}.
      */
     public PhysicsObject(Vec3 initialPosition) {
         this(initialPosition, Rotation.ORIGIN, Vec3.ORIGIN, Vec3.ORIGIN);
     }
 
     /**
-     * Constructs a newly allocated <b>PhysicsObject</b> object,
-     * with an initial <b>position</b>, <b>rotation</b>, <b>velocity</b>,
+     * Constructs a newly allocated {@link PhysicsObject} object,
+     * with an initial <b>position</b>, {@link Rotation}, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      */
     public PhysicsObject() {
@@ -138,30 +134,30 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns a <b>Vec3</b> of the weighted average of the
+     * Returns a {@link Vec3} of the weighted average of the
      * <b>previous</b> and <b>current</b> positions, using a weight of <b>ratio</b>.
      *
      * @param ratio the weight for the weighted average.
-     * @return the interpolated <b>Vec3</b>
+     * @return the interpolated {@link Vec3}
      */
     public Vec3 getRenderPosition(double ratio) {
         return MathUtilities.interpolate(previousPosition, position, ratio);
     }
 
     /**
-     * Returns a <b>Rotation</b> of the weighted average of the
+     * Returns a {@link Rotation} of the weighted average of the
      * <b>previous</b> and <b>current</b> rotations, using a weight of <b>ratio</b>.
      *
      * @param ratio the weight for the weighted average.
-     * @return the interpolated <b>Rotation</b>
+     * @return the interpolated {@link Rotation}
      */
     public Rotation getRenderRotation(double ratio) {
         return MathUtilities.interpolate(previousRotation, rotation, ratio);
     }
 
     /**
-     * Simulates the <b>PhysicsObject</b> for a time of <b>deltaTime</b>.
-     * This first caches the current <b>position</b> and  <b>rotation</b> as
+     * Simulates the {@link PhysicsObject} for a time of <b>deltaTime</b>.
+     * This first caches the current <b>position</b> and  {@link Rotation} as
      * <b>previousPosition</b> and <b>previousRotation</b>, respectively.
      * <p>
      * The new <b>position</b> is then calculated with:
@@ -172,7 +168,7 @@ public class PhysicsObject {
      * <p>
      * <b><i>v\u209C = v\u2080 + at</i></b>.
      *
-     * @param deltaTime the elapsed time to simulate this <b>PhysicsObject</b> for.
+     * @param deltaTime the elapsed time to simulate this {@link PhysicsObject} for.
      */
     public void update(double deltaTime) {
         previousPosition = position;
@@ -185,7 +181,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Moves the <b>PhysicsObject</b> to the position <b>position</b>,
+     * Moves the {@link PhysicsObject} to the position <b>position</b>,
      * caching the previous position as <b>previousPosition</b>.
      *
      * @param position the new <b>position</b>.
@@ -196,10 +192,10 @@ public class PhysicsObject {
     }
 
     /**
-     * Rotates <b>PhysicsObject</b> to the rotation <b>rotation</b>,
+     * Rotates {@link PhysicsObject} to the rotation {@link Rotation},
      * caching the previous rotation as <b>previousRotation</b>.
      *
-     * @param rotation the new <b>rotation</b>.
+     * @param rotation the new {@link Rotation}.
      */
     public void setRotation(Rotation rotation) {
         this.previousRotation = this.rotation;
@@ -207,7 +203,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns the current position of this <b>PhysicsObject</b>.
+     * Returns the current position of this {@link PhysicsObject}.
      *
      * @return the current position
      */
@@ -216,7 +212,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns the current rotation of this <b>PhysicsObject</b>.
+     * Returns the current rotation of this {@link PhysicsObject}.
      *
      * @return the current rotation
      */
@@ -225,7 +221,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns the current velocity of this <b>PhysicsObject</b>.
+     * Returns the current velocity of this {@link PhysicsObject}.
      *
      * @return the current velocity
      */
@@ -234,7 +230,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Sets the <b>velocity</b> of the <b>PhysicsObject</b> to <b>velocity</b>.
+     * Sets the <b>velocity</b> of the {@link PhysicsObject} to <b>velocity</b>.
      *
      * @param velocity the new <b>velocity</b>.
      */
@@ -243,7 +239,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns the current acceleration of this <b>PhysicsObject</b>.
+     * Returns the current acceleration of this {@link PhysicsObject}.
      *
      * @return the current acceleration
      */
@@ -252,7 +248,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Sets the <b>acceleration</b> of the <b>PhysicsObject</b> to <b>acceleration</b>.
+     * Sets the <b>acceleration</b> of the {@link PhysicsObject} to <b>acceleration</b>.
      *
      * @param acceleration the new <b>acceleration</b>.
      */
@@ -261,7 +257,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Returns the current mass of this <b>PhysicsObject</b>.
+     * Returns the current mass of this {@link PhysicsObject}.
      *
      * @return the current mass
      */
@@ -270,7 +266,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Sets the <b>mass</b> of the <b>PhysicsObject</b> to <b>mass</b>.
+     * Sets the <b>mass</b> of the {@link PhysicsObject} to <b>mass</b>.
      *
      * @param mass the new <b>mass</b>.
      */
@@ -279,7 +275,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Modifies the <b>velocity</b> of the <b>PhysicsObject</b>, by
+     * Modifies the <b>velocity</b> of the {@link PhysicsObject}, by
      * calculating the <b>acceleration</b> with:
      * <p>
      * <b><i>F = ma \u2263 a = F / m</i></b>.

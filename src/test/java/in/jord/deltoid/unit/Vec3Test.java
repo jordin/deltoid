@@ -1,6 +1,6 @@
-package me.jordin.deltoid.unit;
+package in.jord.deltoid.unit;
 
-import me.jordin.deltoid.vector.Vec3;
+import in.jord.deltoid.vector.Vec3;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class Vec3Test {
     @Test
     public void testLength() {
         Vec3 vec3 = new Vec3(1, 2, 3);
-        // TODO: I don't know what kind of values this is meant to be returning.
+        Assert.assertEquals(vec3.length(), Math.sqrt(1 * 1 + 2 * 2 + 3 * 3), 0.00000000001);
     }
 
     @Test
@@ -52,7 +52,14 @@ public class Vec3Test {
 
     @Test
     public void testNormalize() {
-        // TODO: Implement
+        Vec3 vec3 = new Vec3(1, 2, 3);
+        double length = Math.sqrt(1 * 1 + 2 * 2 + 3 * 3);
+        vec3 = vec3.normalize();
+
+        Assert.assertEquals(vec3.length(), 1, 0.00000000001);
+        Assert.assertEquals(vec3.x, 1 / length, 0.00000000001);
+        Assert.assertEquals(vec3.y, 2 / length, 0.00000000001);
+        Assert.assertEquals(vec3.z, 3 / length, 0.00000000001);
     }
 
     @Test

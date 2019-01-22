@@ -1,6 +1,6 @@
-package me.jordin.deltoid;
+package in.jord.deltoid;
 
-import me.jordin.deltoid.vector.Vec3;
+import in.jord.deltoid.vector.Vec3;
 
 /**
  * Created by Jordin on 6/19/2017.

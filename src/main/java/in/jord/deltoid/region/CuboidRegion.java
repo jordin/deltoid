@@ -1,25 +1,21 @@
-package me.jordin.deltoid.region;
+package in.jord.deltoid.region;
 
 import com.google.gson.annotations.SerializedName;
-import me.jordin.deltoid.utils.MathUtilities;
-import me.jordin.deltoid.utils.UnionUtilities;
-import me.jordin.deltoid.vector.Vec3;
+import in.jord.deltoid.utils.UnionUtilities;
+import in.jord.deltoid.vector.Vec3;
+import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Jordin on 6/19/2017.
- * Jordin is still best hacker.
- */
 public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     /**
-     * A <b>CuboidRegion</b> with coordinates <b>[0, 0, 0]</b> and volume <b>v = 0.0</b>.
+     * A {@link CuboidRegion} with coordinates <b>[0, 0, 0]</b> and volume <b>v = 0.0</b>.
      */
     public static final CuboidRegion ORIGIN = new CuboidRegion(Vec3.ORIGIN, Vec3.ORIGIN);
 
     /**
-     * The lower bounds of this <b>CuboidRegion</b>.
+     * The lower bounds of this {@link CuboidRegion}.
      * Calculated by <b>min = Math.min(<i>pos1</i>, <i>pos2</i>)</b>
      *
      * @serial
@@ -28,7 +24,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public final Vec3 min;
 
     /**
-     * The upper bounds of this <b>CuboidRegion</b>.
+     * The upper bounds of this {@link CuboidRegion}.
      * Calculated by <b>max = Math.max(<i>pos1</i>, <i>pos2</i>)</b>.
      *
      * @serial
@@ -37,7 +33,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public final Vec3 max;
 
     /**
-     * The original first position of this <b>CuboidRegion</b>.
+     * The original first position of this {@link CuboidRegion}.
      *
      * @serial
      */
@@ -45,7 +41,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public final Vec3 pos1;
 
     /**
-     * The original second position of this <b>CuboidRegion</b>.
+     * The original second position of this {@link CuboidRegion}.
      *
      * @serial
      */
@@ -53,7 +49,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public final Vec3 pos2;
 
     /**
-     * The size of this <b>CuboidRegion</b>.
+     * The size of this {@link CuboidRegion}.
      * Calculated by <b>dimensions = max - min</b>
      *
      * @serial
@@ -62,7 +58,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public final Vec3 dimensions;
 
     /**
-     * The total volume enclosed in this <b>CuboidRegion</b>.
+     * The total volume enclosed in this {@link CuboidRegion}.
      *
      * @serial
      */
@@ -70,7 +66,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     private final double volume;
 
     /**
-     * The total surface area of this <b>CuboidRegion</b>.
+     * The total surface area of this {@link CuboidRegion}.
      *
      * @serial
      */
@@ -78,17 +74,17 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     private final double surfaceArea;
 
     /**
-     * A <b>List</b> of all of the <b>Vec3</b>s enclosed in this <b>CuboidRegion</b>.
+     * A {@link List} of all of the {@link Vec3}s enclosed in this {@link CuboidRegion}.
      *
      * @serial
      */
     private List<Vec3> enclosedPoints;
 
     /**
-     * Constructs a newly allocated <b>CuboidRegion</b> object.
+     * Constructs a newly allocated {@link CuboidRegion} object.
      *
-     * @param pos1 the first position of this <b>CuboidRegion</b>.
-     * @param pos2 the second position of this <b>CuboidRegion</b>.
+     * @param pos1 the first position of this {@link CuboidRegion}.
+     * @param pos2 the second position of this {@link CuboidRegion}.
      */
     public CuboidRegion(Vec3 pos1, Vec3 pos2) {
         this.pos1 = pos1;
@@ -104,9 +100,9 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns the total volume enclosed in this <b>CuboidRegion</b>.
+     * Returns the total volume enclosed in this {@link CuboidRegion}.
      *
-     * @return the total volume of this <b>CuboidRegion</b>
+     * @return the total volume of this {@link CuboidRegion}
      */
     @Override
     public double volume() {
@@ -114,9 +110,9 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns the total surface area of this <b>CuboidRegion</b>.
+     * Returns the total surface area of this {@link CuboidRegion}.
      *
-     * @return the total surface area of this <b>CuboidRegion</b>
+     * @return the total surface area of this {@link CuboidRegion}
      */
     @Override
     public double surfaceArea() {
@@ -124,10 +120,10 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns {@code true} if the <b>CuboidRegion</b> has
+     * Returns {@code true} if the {@link CuboidRegion} has
      * a non-zero volume, {@code false} otherwise.
      *
-     * @return {@code true} if the <b>CuboidRegion</b> exists, {@code false} otherwise
+     * @return {@code true} if the {@link CuboidRegion} exists, {@code false} otherwise
      */
     @Override
     public boolean exists() {
@@ -135,11 +131,11 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns {@code true} if the <b>CuboidRegion</b>
+     * Returns {@code true} if the {@link CuboidRegion}
      * contains <b>location</b> {@code false} otherwise.
      *
-     * @param location the <b>Vec3</b>to consider.
-     * @return {@code true} if the <b>CuboidRegion</b> contains <b>location</b>, {@code false} otherwise
+     * @param location the {@link Vec3}to consider.
+     * @return {@code true} if the {@link CuboidRegion} contains <b>location</b>, {@code false} otherwise
      */
     @Override
     public boolean contains(Vec3 location) {
@@ -149,9 +145,9 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns a <b>List</b> of all of the <b>Vec3</b>s enclosed in this <b>CuboidRegion</b>.
+     * Returns a {@link List} of all of the {@link Vec3}s enclosed in this {@link CuboidRegion}.
      *
-     * @return the <b>List</b> of the <b>Vec3</b>s
+     * @return the {@link List} of the {@link Vec3}s
      */
     @Override
     public List<Vec3> enclosedPoints() {
@@ -182,11 +178,11 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Creates the smallest possible <b>CuboidRegion</b>
-     * that fully encloses this <b>CuboidRegion</b> and <b>CuboidRegion</b>.
+     * Creates the smallest possible {@link CuboidRegion}
+     * that fully encloses this {@link CuboidRegion} and <b>region</b>.
      *
-     * @param region the other <b>CuboidRegion</b> to be considered
-     * @return the <b>CuboidRegion</b>
+     * @param region the other {@link CuboidRegion} to be considered
+     * @return the {@link CuboidRegion}
      */
     @Override
     public CuboidRegion union(CuboidRegion region) {
@@ -194,10 +190,10 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns a new <b>CuboidRegion</b> translated by <b>offset</b>.
+     * Returns a new {@link CuboidRegion} translated by <b>offset</b>.
      *
-     * @param offset the amount to translate this <b>CuboidRegion</b> by.
-     * @return the new <b>CuboidRegion</b>
+     * @param offset the amount to translate this {@link CuboidRegion} by.
+     * @return the new {@link CuboidRegion}
      */
     @Override
     public CuboidRegion offset(Vec3 offset) {
@@ -205,10 +201,10 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns a new <b>CuboidRegion</b> expanded by <b>expansion</b>.
+     * Returns a new {@link CuboidRegion} expanded by <b>expansion</b>.
      *
-     * @param expansion the amount to expand this <b>CuboidRegion</b> by.
-     * @return the new <b>CuboidRegion</b>
+     * @param expansion the amount to expand this {@link CuboidRegion} by.
+     * @return the new {@link CuboidRegion}
      */
     public CuboidRegion expand(Vec3 expansion) { // TODO: preserve pos1 and pos2
         Vec3 newMin = new Vec3(min.x - expansion.x, min.y - expansion.y, min.z - expansion.z);
@@ -218,10 +214,10 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     }
 
     /**
-     * Returns a new <b>CuboidRegion</b> expanded in all directions by <b>amount</b>.
+     * Returns a new {@link CuboidRegion} expanded in all directions by <b>amount</b>.
      *
-     * @param expansion the amount to expand this <b>CuboidRegion</b> by.
-     * @return the new <b>CuboidRegion</b>
+     * @param expansion the amount to expand this {@link CuboidRegion} by.
+     * @return the new {@link CuboidRegion}
      */
     public CuboidRegion expand(double expansion) { // TODO: preserve pos1 and pos2
         Vec3 newMin = new Vec3(min.x - expansion, min.y - expansion, min.z - expansion);

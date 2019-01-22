@@ -1,27 +1,21 @@
-package me.jordin.deltoid.region;
+package in.jord.deltoid.region;
 
 import com.google.gson.annotations.SerializedName;
-import me.jordin.deltoid.utils.UnionUtilities;
-import me.jordin.deltoid.vector.Vec2;
+import in.jord.deltoid.utils.UnionUtilities;
+import in.jord.deltoid.vector.Vec2;
 
 import java.util.List;
 
-/**
- * Created by Jordin on 6/29/2017.
- * Jordin is still best hacker.
- */
 public class CircleRegion implements Region<CircleRegion, Vec2> {
     /**
-     * A <b>CircleRegion</b> with coordinates <b>[0, 0]</b> and radius <b>r = 0.0</b>.
+     * A {@link CircleRegion} with coordinates <b>[0, 0]</b> and radius <b>r = 0.0</b>.
      */
     public static final CircleRegion ORIGIN = new CircleRegion(Vec2.ORIGIN, 0);
-
-    private static Vec2 CENTRE = new Vec2(0.5, 0.5);
 
     private static double HALF_TAU = Math.PI;
 
     /**
-     * The location of the centre of this <b>CircleRegion</b>.
+     * The location of the centre of this {@link CircleRegion}.
      *
      * @serial
      */
@@ -29,7 +23,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     public final Vec2 centre;
 
     /**
-     * The radius of this <b>CircleRegion</b>.
+     * The radius of this {@link CircleRegion}.
      *
      * @serial
      */
@@ -37,7 +31,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     public final double radius;
 
     /**
-     * The total surface area of this <b>CircleRegion</b>.
+     * The total surface area of this {@link CircleRegion}.
      *
      * @serial
      */
@@ -52,7 +46,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Returns the total volume enclosed in this <b>CircleRegion</b>.
+     * Returns the total volume enclosed in this {@link CircleRegion}.
      *
      * @return <b>0.0</b>, Circles do not have a volume!
      */
@@ -62,9 +56,9 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Returns the total area of this <b>CircleRegion</b>.
+     * Returns the total area of this {@link CircleRegion}.
      *
-     * @return the total area of this <b>CircleRegion</b>
+     * @return the total area of this {@link CircleRegion}
      */
     @Override
     public double surfaceArea() {
@@ -72,10 +66,10 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Returns {@code true} if the <b>CircleRegion</b> has
+     * Returns {@code true} if the {@link CircleRegion} has
      * a non-zero area, {@code false} otherwise.
      *
-     * @return {@code true} if the <b>CircleRegion</b> exists, {@code false} otherwise
+     * @return {@code true} if the {@link CircleRegion} exists, {@code false} otherwise
      */
     @Override
     public boolean exists() {
@@ -83,21 +77,21 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Returns {@code true} if the <b>CircleRegion</b>
+     * Returns {@code true} if the {@link CircleRegion}
      * contains <b>location</b> {@code false} otherwise.
      *
-     * @param location the <b>Vec2</b> to consider.
-     * @return {@code true} if the <b>CircleRegion</b> contains <b>location</b>, {@code false} otherwise
+     * @param location the {@link Vec2} to consider.
+     * @return {@code true} if the {@link CircleRegion} contains <b>location</b>, {@code false} otherwise
      */
     @Override
     public boolean contains(Vec2 location) {
-        return this.centre.subtract(location.add(CENTRE)).length() <= this.radius;
+        return this.centre.subtract(location.add(Vec2.CENTRE)).length() <= this.radius;
     }
 
     /**
-     * Returns a <b>List</b> of all of the <b>Vec2</b>s enclosed in this <b>CircleRegion</b>.
+     * Returns a {@link List} of all of the {@link Vec2}s enclosed in this {@link CircleRegion}.
      *
-     * @return the <b>List</b> of the <b>Vec2</b>s
+     * @return the {@link List} of the {@link Vec2}s
      */
     @Override
     public List<Vec2> enclosedPoints() {
@@ -106,11 +100,11 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Creates the smallest possible <b>CircleRegion</b>
-     * that fully encloses this <b>CircleRegion</b> and <b>region</b>.
+     * Creates the smallest possible {@link CircleRegion}
+     * that fully encloses this {@link CircleRegion} and <b>region</b>.
      *
-     * @param region the other <b>CircleRegion</b> to be considered
-     * @return the <b>CircleRegion</b>
+     * @param region the other {@link CircleRegion} to be considered
+     * @return the {@link CircleRegion}
      */
     @Override
     public CircleRegion union(CircleRegion region) {
@@ -118,9 +112,9 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     }
 
     /**
-     * Returns a new <b>CircleRegion</b> translated by <b>offset</b>.
+     * Returns a new {@link CircleRegion} translated by <b>offset</b>.
      *
-     * @return the new <b>CircleRegion</b>
+     * @return the new {@link CircleRegion}
      */
     @Override
     public CircleRegion offset(Vec2 offset) {
