@@ -1,7 +1,6 @@
 package in.jord.deltoid.utils;
 
 import in.jord.deltoid.region.*;
-import me.jordin.deltoid.region.*;
 import in.jord.deltoid.vector.Vec2;
 import in.jord.deltoid.vector.Vec3;
 
