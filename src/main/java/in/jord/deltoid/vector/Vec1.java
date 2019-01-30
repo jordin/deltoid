@@ -14,9 +14,14 @@ public class Vec1 implements Vector<Vec1> {
     public static final Vec1 ONE = new Vec1(1);
 
     /**
+     * A {@link Vec1} with coordinates <b>[-1]</b>.
+     */
+    public static final Vec1 MINUS_ONE = new Vec1(-1);
+
+    /**
      * A unit {@link Vec1} parallel to the <b>x</b>-axis.
      */
-    public static final Vec1 X_AXIS = new Vec1(1);
+    public static final Vec1 X_AXIS = ONE;
 
     /**
      * A {@link Vec1} with coordinates <b>[0]</b>.
@@ -32,7 +37,7 @@ public class Vec1 implements Vector<Vec1> {
      * A {@link Vec1} with coordinates <b>[0.5]</b>.
      *
      * <p>
-     * This represents the position of the midpoint of a <b>1x1</b> surface parallel to the <b>x</b> plane
+     * This represents the position of the midpoint of a unit line segment parallel to the <b>x</b> axis
      * </p>
      *
      */
@@ -70,7 +75,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public double length() {
-        return x;
+        return Math.abs(x);
     }
 
     /**
@@ -115,7 +120,15 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 normalize() {
-        return new Vec1(x / this.length());
+        if (x == 0) {
+            return ZERO;
+        }
+
+        if (x > 0) {
+            return ONE;
+        }
+
+        return MINUS_ONE;
     }
 
     /**
