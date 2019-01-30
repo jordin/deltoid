@@ -4,6 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Vec1 implements Vector<Vec1> {
     /**
+     * A {@link Vec1} with all coordinates being NaN.
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final Vec1 INVALID = new Vec1(Double.NaN);
+
+    /**
      * A {@link Vec1} with coordinates <b>[0]</b>.
      */
     public static final Vec1 ORIGIN = new Vec1(0);

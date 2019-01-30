@@ -5,6 +5,12 @@ import in.jord.deltoid.utils.MathUtilities;
 
 public class Rotation implements Vector<Rotation> {
     /**
+     * A {@link Rotation} with all coordinates being NaN.
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final Rotation INVALID = new Rotation(Double.NaN, Double.NaN, Double.NaN);
+
+    /**
      * A {@link Rotation} with coordinates <b>[0, 0, 0]</b>.
      */
     public static final Rotation ORIGIN = new Rotation(0, 0, 0);
