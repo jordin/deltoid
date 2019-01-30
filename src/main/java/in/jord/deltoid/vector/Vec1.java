@@ -208,7 +208,7 @@ public class Vec1 implements Vector<Vec1> {
      * @return new Vec1 instance
      * @see Vec1#Vec1(double)
      */
-    public static Vec1 of(double x, double y) {
+    public static Vec1 of(double x) {
         return new Vec1(x);
     }
 }
