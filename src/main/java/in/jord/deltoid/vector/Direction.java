@@ -6,6 +6,12 @@ import java.util.Objects;
 
 public class Direction implements Vector<Direction> {
     /**
+     * A {@link Direction} with all coordinates being NaN.
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final Direction INVALID = new Direction(Double.NaN, Double.NaN, Double.NaN);
+
+    /**
      * A {@link Direction} with coordinates <b>[0, 0, 0]</b>.
      */
     public static final Direction ORIGIN = new Direction(0, 0, 0);

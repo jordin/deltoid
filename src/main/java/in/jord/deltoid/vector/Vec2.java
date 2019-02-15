@@ -6,6 +6,12 @@ import java.util.Objects;
 
 public class Vec2 implements Vector<Vec2> {
     /**
+     * A {@link Vec2} with all coordinates being NaN.
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final Vec2 INVALID = new Vec2(Double.NaN, Double.NaN);
+
+    /**
      * A {@link Vec2} with coordinates <b>[0, 0]</b>.
      */
     public static final Vec2 ORIGIN = new Vec2(0, 0);
