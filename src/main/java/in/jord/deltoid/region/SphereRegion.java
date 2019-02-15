@@ -5,6 +5,7 @@ import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SphereRegion implements Region<SphereRegion, Vec3> {
     /**
@@ -129,5 +130,28 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
     @Override
     public SphereRegion offset(Vec3 offset) {
         return new SphereRegion(centre.add(offset), radius);
+    }
+
+    /**
+     * Compares this {@link SphereRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link SphereRegion}
+     * object that represents the same rotation angles as this {@link SphereRegion}.
+     *
+     * @param other the object to compare this {@link SphereRegion} against
+     * @return {@code true} if the given object represents a {@link SphereRegion}
+     * equivalent to this {@link SphereRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        SphereRegion that = (SphereRegion) other;
+        return Double.compare(that.radius, radius) == 0 &&
+                Objects.equals(centre, that.centre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(centre, radius);
     }
 }

@@ -7,6 +7,7 @@ import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
@@ -211,5 +212,29 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
         Vec2 newMax = new Vec2(max.x + expansion, max.y + expansion);
 
         return new RectangleRegion(newMin, newMax);
+    }
+
+    /**
+     * Compares this {@link RectangleRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link RectangleRegion}
+     * object that represents the same rotation angles as this {@link RectangleRegion}.
+     *
+     * @param other the object to compare this {@link RectangleRegion} against
+     * @return {@code true} if the given object represents a {@link RectangleRegion}
+     * equivalent to this {@link RectangleRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        RectangleRegion that = (RectangleRegion) other;
+        return Objects.equals(min, that.min) &&
+                Objects.equals(max, that.max) &&
+                Objects.equals(dimensions, that.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(min, max, dimensions);
     }
 }

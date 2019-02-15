@@ -5,6 +5,7 @@ import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CircleRegion implements Region<CircleRegion, Vec2> {
     /**
@@ -119,5 +120,28 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     @Override
     public CircleRegion offset(Vec2 offset) {
         return new CircleRegion(centre.add(offset), radius);
+    }
+
+    /**
+     * Compares this {@link CircleRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link CircleRegion}
+     * object that represents the same rotation angles as this {@link CircleRegion}.
+     *
+     * @param other the object to compare this {@link CircleRegion} against
+     * @return {@code true} if the given object represents a {@link CircleRegion}
+     * equivalent to this {@link CircleRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        CircleRegion that = (CircleRegion) other;
+        return Double.compare(that.radius, radius) == 0 &&
+                Objects.equals(centre, that.centre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(centre, radius);
     }
 }

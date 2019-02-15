@@ -119,7 +119,7 @@ public class MathUtilities {
 
     /**
      * Returns a weighted average of <b>previousRotation</b>
-     * and {@link Rotation}, using a weight of <b>ratio</b>.
+     * and <b>rotation</b>, using a weight of <b>ratio</b>.
      *
      * @param previousRotation the first rotation to be considered.
      * @param rotation         the second rotation to be considered.
@@ -132,10 +132,9 @@ public class MathUtilities {
         return previousRotation + (delta * ratio);
     }
 
-
     /**
      * Returns a weighted average of <b>previousRotation</b>
-     * and {@link Rotation}, using a weight of <b>ratio</b>.
+     * and <b>rotation</b>, using a weight of <b>ratio</b>.
      *
      * @param previousRotation the first rotation to be considered.
      * @param rotation         the second rotation to be considered.
@@ -147,7 +146,6 @@ public class MathUtilities {
 
         return previousRotation + (delta * ratio);
     }
-
 
     /**
      * Returns the <b>angle</b> restricted to:
@@ -197,5 +195,15 @@ public class MathUtilities {
      */
     public static int floor(double value) {
         return (int) Math.floor(value);
+    }
+
+    /**
+     * Returns the result of <b>ceil(value)</b> as an integer.
+     *
+     * @param value the value to ceil
+     * @return the result of ceil(value) as an int primitive.
+     */
+    public static int ceil(double value) {
+        return (int) Math.ceil(value);
     }
 }
