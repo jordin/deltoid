@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnionUtilities {
-
     public static <R1, R2, V> List<V> overlap(Region<R1, V> region1, Region<R2, V> region2) {
         List<V> locations = new ArrayList<>();
 
@@ -31,8 +30,8 @@ public class UnionUtilities {
         double minX = Math.min(rect1.min.x, rect2.min.x);
         double minY = Math.min(rect1.min.y, rect2.min.y);
 
-        double maxX = Math.min(rect1.max.x, rect2.max.x);
-        double maxY = Math.min(rect1.max.y, rect2.max.y);
+        double maxX = Math.max(rect1.max.x, rect2.max.x);
+        double maxY = Math.max(rect1.max.y, rect2.max.y);
 
         return new RectangleRegion(new Vec2(minX, minY), new Vec2(maxX, maxY));
     }
@@ -68,9 +67,9 @@ public class UnionUtilities {
         double minY = Math.min(cube1.min.y, cube2.min.y);
         double minZ = Math.min(cube1.min.z, cube2.min.z);
 
-        double maxX = Math.min(cube1.max.x, cube2.max.x);
-        double maxY = Math.min(cube1.max.y, cube2.max.y);
-        double maxZ = Math.min(cube1.max.z, cube2.max.z);
+        double maxX = Math.max(cube1.max.x, cube2.max.x);
+        double maxY = Math.max(cube1.max.y, cube2.max.y);
+        double maxZ = Math.max(cube1.max.z, cube2.max.z);
 
         return new CuboidRegion(new Vec3(minX, minY, minZ), new Vec3(maxX, maxY, maxZ));
     }

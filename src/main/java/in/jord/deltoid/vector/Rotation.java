@@ -3,6 +3,8 @@ package in.jord.deltoid.vector;
 import com.google.gson.annotations.SerializedName;
 import in.jord.deltoid.utils.MathUtilities;
 
+import java.util.Objects;
+
 public class Rotation implements Vector<Rotation> {
     /**
      * A {@link Rotation} with coordinates <b>[0, 0, 0]</b>.
@@ -125,10 +127,17 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Rotation) &&
-                ((Rotation) other).rotationYaw == this.rotationYaw &&
-                ((Rotation) other).rotationPitch == this.rotationPitch &&
-                ((Rotation) other).rotationRoll == this.rotationRoll;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Rotation rotation = (Rotation) other;
+        return Double.compare(rotation.rotationYaw, rotationYaw) == 0 &&
+                Double.compare(rotation.rotationPitch, rotationPitch) == 0 &&
+                Double.compare(rotation.rotationRoll, rotationRoll) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rotationYaw, rotationPitch, rotationRoll);
     }
 
     /**

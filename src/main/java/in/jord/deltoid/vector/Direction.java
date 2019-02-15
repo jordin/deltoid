@@ -2,6 +2,8 @@ package in.jord.deltoid.vector;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Direction implements Vector<Direction> {
     /**
      * A {@link Direction} with coordinates <b>[0, 0, 0]</b>.
@@ -108,10 +110,17 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Direction) &&
-                ((Direction) other).alpha == this.alpha &&
-                ((Direction) other).beta == this.beta &&
-                ((Direction) other).gamma == this.gamma;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Direction direction = (Direction) other;
+        return Double.compare(direction.alpha, alpha) == 0 &&
+                Double.compare(direction.beta, beta) == 0 &&
+                Double.compare(direction.gamma, gamma) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alpha, beta, gamma);
     }
 
     /**

@@ -2,6 +2,8 @@ package in.jord.deltoid.vector;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Vec3 implements Vector<Vec3> {
     /**
      * A {@link Vec3} with coordinates <b>[0, 0, 0]</b>.
@@ -175,10 +177,17 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Vec3) &&
-                ((Vec3) other).x == this.x &&
-                ((Vec3) other).y == this.y &&
-                ((Vec3) other).z == this.z;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Vec3 vec3 = (Vec3) other;
+        return Double.compare(vec3.x, x) == 0 &&
+                Double.compare(vec3.y, y) == 0 &&
+                Double.compare(vec3.z, z) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z);
     }
 
     /**
