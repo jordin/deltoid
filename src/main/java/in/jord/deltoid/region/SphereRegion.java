@@ -13,6 +13,11 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     public static final SphereRegion ORIGIN = new SphereRegion(Vec3.ORIGIN, 0);
 
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final SphereRegion INVALID = new SphereRegion(Vec3.INVALID, 0);
+
     private static double TWO_TAU = 4.0 * Math.PI;
     private static double TWO_OVER_THREE_TIMES_TAU = 4.0 / 3.0 * Math.PI;
 
@@ -52,8 +57,13 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
         this.centre = centre;
         this.radius = radius;
 
-        this.volume = TWO_OVER_THREE_TIMES_TAU * radius * radius * radius;
-        this.surfaceArea = TWO_TAU * radius * radius;
+        if (centre.isValid()) {
+            this.volume = TWO_OVER_THREE_TIMES_TAU * radius * radius * radius;
+            this.surfaceArea = TWO_TAU * radius * radius;
+        } else {
+            this.volume = 0;
+            this.surfaceArea = 0;
+        }
     }
 
     /**
@@ -84,7 +94,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0;
+        return this.radius != 0 && this.centre.isValid();
     }
 
     /**

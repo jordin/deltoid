@@ -10,6 +10,11 @@ public class Line {
     public static final Line ORIGIN = new Line(Vec3.ORIGIN, Vec3.ORIGIN);
 
     /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final Line INVALID = new Line(Vec3.INVALID, Vec3.INVALID);
+
+    /**
      * The start position of this {@link Line}.
      *
      * @serial
@@ -58,7 +63,13 @@ public class Line {
     public Line(Vec3 start, Vec3 end) {
         this.start = start;
         this.end = end;
-        this.delta = this.end.subtract(this.start);
-        this.length = this.delta.length();
+
+        if (start.isValid() && end.isValid()) {
+            this.delta = this.end.subtract(this.start);
+            this.length = this.delta.length();
+        } else {
+            this.delta = Vec3.INVALID;
+            this.length = Double.NaN;
+        }
     }
 }

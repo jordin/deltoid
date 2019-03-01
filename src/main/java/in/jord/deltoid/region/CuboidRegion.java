@@ -1,9 +1,9 @@
 package in.jord.deltoid.region;
 
 import com.google.gson.annotations.SerializedName;
+import in.jord.deltoid.utils.MathUtilities;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
-import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +14,11 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      * A {@link CuboidRegion} with coordinates <b>[0, 0, 0]</b> and volume <b>v = 0.0</b>.
      */
     public static final CuboidRegion ORIGIN = new CuboidRegion(Vec3.ORIGIN, Vec3.ORIGIN);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final CuboidRegion INVALID = new CuboidRegion(Vec3.INVALID, Vec3.INVALID);
 
     /**
      * The lower bounds of this {@link CuboidRegion}.
@@ -91,6 +96,17 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
         this.pos1 = pos1;
         this.pos2 = pos2;
 
+        if (!pos1.isValid() || !pos2.isValid()) {
+            this.min = Vec3.INVALID;
+            this.max = Vec3.INVALID;
+
+            this.dimensions = Vec3.INVALID;
+
+            this.volume = 0;
+            this.surfaceArea = 0;
+            return;
+        }
+
         this.min = new Vec3(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y), Math.min(pos1.z, pos2.z));
         this.max = new Vec3(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y), Math.max(pos1.z, pos2.z));
 
@@ -128,7 +144,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return this.volume != 0;
+        return this.volume != 0 && this.pos1.isValid() && this.pos2.isValid();
     }
 
     /**

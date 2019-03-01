@@ -13,6 +13,11 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     public static final CircleRegion ORIGIN = new CircleRegion(Vec2.ORIGIN, 0);
 
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final CircleRegion INVALID = new CircleRegion(Vec2.INVALID, 0);
+
     private static double HALF_TAU = Math.PI;
 
     /**
@@ -43,7 +48,11 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
         this.centre = centre;
         this.radius = radius;
 
-        this.surfaceArea = HALF_TAU * radius * radius;
+        if (centre.isValid()) {
+            this.surfaceArea = HALF_TAU * radius * radius;
+        } else {
+            this.surfaceArea = 0;
+        }
     }
 
     /**
@@ -74,7 +83,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0;
+        return this.radius != 0 && this.centre.isValid();
     }
 
     /**

@@ -1,9 +1,9 @@
 package in.jord.deltoid.region;
 
 import com.google.gson.annotations.SerializedName;
+import in.jord.deltoid.utils.MathUtilities;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
-import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +14,11 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      * A {@link RectangleRegion} with coordinates <b>[0, 0]</b> and area <b>a = 0.0</b>.
      */
     public static final RectangleRegion ORIGIN = new RectangleRegion(Vec2.ORIGIN, Vec2.ORIGIN);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final RectangleRegion INVALID = new RectangleRegion(Vec2.INVALID, Vec2.INVALID);
 
     /**
      * The lower bounds of this {@link RectangleRegion}.
@@ -83,6 +88,16 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
         this.pos1 = pos1;
         this.pos2 = pos2;
 
+        if (!pos1.isValid() || !pos2.isValid()) {
+            this.min = Vec2.INVALID;
+            this.max = Vec2.INVALID;
+
+            this.dimensions = Vec2.INVALID;
+
+            this.surfaceArea = 0;
+            return;
+        }
+
         this.min = new Vec2(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y));
         this.max = new Vec2(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y));
 
@@ -119,7 +134,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      */
     @Override
     public boolean exists() {
-        return this.surfaceArea != 0;
+        return this.surfaceArea != 0 && this.pos1.isValid() && this.pos2.isValid();
     }
 
     /**
