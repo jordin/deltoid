@@ -549,6 +549,9 @@ public class Vec3 implements Vector<Vec3> {
      * @see Vec3#Vec3(double, double, double)
      */
     public static Vec3 of(double x, double y, double z) {
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) {
+            return INVALID;
+        }
         return new Vec3(x, y, z);
     }
 
@@ -562,6 +565,9 @@ public class Vec3 implements Vector<Vec3> {
      * @see Vec3#Vec3(double, double)
      */
     public static Vec3 of(double x, double y) {
+        if (Double.isNaN(x) || Double.isNaN(y)) {
+            return INVALID;
+        }
         return new Vec3(x, y);
     }
 

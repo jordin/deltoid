@@ -241,6 +241,9 @@ public class Vec1 implements Vector<Vec1> {
      * @see Vec1#Vec1(double)
      */
     public static Vec1 of(double x) {
+        if (Double.isNaN(x)) {
+            return INVALID;
+        }
         return new Vec1(x);
     }
 

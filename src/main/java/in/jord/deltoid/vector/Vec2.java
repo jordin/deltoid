@@ -266,6 +266,9 @@ public class Vec2 implements Vector<Vec2> {
      * @see Vec2#Vec2(double, double)
      */
     public static Vec2 of(double x, double y) {
+        if (Double.isNaN(x) || Double.isNaN(y)) {
+            return INVALID;
+        }
         return new Vec2(x, y);
     }
 

@@ -15,7 +15,7 @@ public class Vec0 implements Vector<Vec0> {
     private static final double[] COMPONENTS = new double[0];
 
     /**
-     * Weather or not the {@link Vec0} is valid.
+     * Whether or not the {@link Vec0} is valid.
      *
      * @serial
      */
@@ -25,7 +25,7 @@ public class Vec0 implements Vector<Vec0> {
     /**
      * Constructs a newly allocated {@link Vec0} object.
      *
-     * @param valid weather or not the {@link Vec0} is valid.
+     * @param valid whether or not the {@link Vec0} is valid.
      */
     public Vec0(boolean valid) {
         this.valid = valid;
@@ -170,6 +170,20 @@ public class Vec0 implements Vector<Vec0> {
     @Override
     public String toString() {
         return String.format("Vec0(valid=%b)", this.valid);
+    }
+
+    /**
+     * Construct and return a newly-allocated Vec1 object.
+     *
+     * @param valid whether or not the {@link Vec0} is valid.
+     * @return new Vec0 instance
+     * @see Vec0#Vec0(boolean)
+     */
+    public static Vec0 of(boolean valid) {
+        if (valid) {
+            return VALID;
+        }
+        return INVALID;
     }
 
     /**

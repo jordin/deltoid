@@ -226,6 +226,22 @@ public class Direction implements Vector<Direction> {
     }
 
     /**
+     * Constructs a newly allocated {@link Direction} object.
+     *
+     * @param alpha <b>(α)</b> the magnitude of the angle relative to the <b>x</b>-axis.
+     * @param beta  <b>(β)</b> the magnitude of the angle relative to the <b>y</b>-axis.
+     * @param gamma <b>(γ)</b> the magnitude of the angle relative to the <b>z</b>-axis.
+     * @return new Direction instance
+     * @see Direction#Direction(double, double, double)
+     */
+    public static Direction of(double alpha, double beta, double gamma) {
+        if (Double.isNaN(alpha) || Double.isNaN(beta) || Double.isNaN(gamma)) {
+            return INVALID;
+        }
+        return new Direction(alpha, beta, gamma);
+    }
+
+    /**
      * Returns {@code true} IFF this {@link Direction} is
      * considered to be valid, with each {@code component ∈ ℝ}.
      *

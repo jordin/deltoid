@@ -277,6 +277,38 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
+     * Constructs a newly allocated {@link Rotation} object.
+     *
+     * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
+     * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
+     * @param rotationRoll  the magnitude of the roll of the {@link Rotation}.
+     * @return new Rotation instance
+     * @see Rotation#Rotation(double, double, double)
+     */
+    public static Rotation of(double rotationYaw, double rotationPitch, double rotationRoll) {
+        if (Double.isNaN(rotationYaw) || Double.isNaN(rotationPitch) || Double.isNaN(rotationRoll)) {
+            return INVALID;
+        }
+        return new Rotation(rotationYaw, rotationPitch, rotationRoll);
+    }
+
+    /**
+     * Construct and return a newly-allocated Rotation object,
+     * with a roll of <b>θ=0.0</b>.
+     *
+     * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
+     * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
+     * @return new Vec3 instance
+     * @see Vec3#Vec3(double, double)
+     */
+    public static Rotation of(double rotationYaw, double rotationPitch) {
+        if (Double.isNaN(rotationYaw) || Double.isNaN(rotationPitch)) {
+            return INVALID;
+        }
+        return new Rotation(rotationYaw, rotationPitch);
+    }
+
+    /**
      * Returns {@code true} IFF this {@link Rotation} is
      * considered to be valid, with each {@code component ∈ ℝ}.
      *
