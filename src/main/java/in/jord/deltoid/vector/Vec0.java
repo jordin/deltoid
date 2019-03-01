@@ -12,7 +12,7 @@ public class Vec0 implements Vector<Vec0> {
 
     public static final Vec0 VALID = new Vec0(true);
 
-    private static final double[] COMPONENTS = { 0 };
+    private static final double[] COMPONENTS = new double[0];
 
     /**
      * The <b>x</b>-component of the {@link Vec0}.
