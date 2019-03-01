@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Vec1 implements Vector<Vec1> {
     /**
-     * A {@link Vec1} with all coordinates being NaN.
+     * A {@link Vec1} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Vec1 INVALID = new Vec1(Double.NaN);
+    public static final Vec1 INVALID = new Vec1();
 
     /**
      * A {@link Vec1} with coordinates <b>[0]</b>.
@@ -65,16 +65,20 @@ public class Vec1 implements Vector<Vec1> {
      * @param x the magnitude of the <b>x</b>-component of the {@link Vec1}.
      */
     public Vec1(double x) {
+        if (Double.isNaN(x))
+            throw new IllegalArgumentException("x shall not be NaN!");
         this.x = x;
     }
 
     /**
-     * Constructs a newly allocated {@link Vec1} object with coordinates <b>[0]</b>
+     * Constructs an invalid {@link Rotation} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Vec1() {
-        this.x = 0;
+    private Vec1() {
+        this.x = Double.NaN;
     }
-
 
     /**
      * Returns the magnitude of the {@link Vec1}.
@@ -238,5 +242,16 @@ public class Vec1 implements Vector<Vec1> {
      */
     public static Vec1 of(double x) {
         return new Vec1(x);
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Vec1} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Vec1} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }

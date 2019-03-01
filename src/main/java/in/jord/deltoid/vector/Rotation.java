@@ -7,10 +7,10 @@ import java.util.Objects;
 
 public class Rotation implements Vector<Rotation> {
     /**
-     * A {@link Rotation} with all coordinates being NaN.
+     * A {@link Rotation} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Rotation INVALID = new Rotation(Double.NaN, Double.NaN, Double.NaN);
+    public static final Rotation INVALID = new Rotation();
 
     /**
      * A {@link Rotation} with coordinates <b>[0, 0, 0]</b>.
@@ -51,6 +51,12 @@ public class Rotation implements Vector<Rotation> {
      * @param rotationRoll  the magnitude of the roll of the {@link Rotation}.
      */
     public Rotation(double rotationYaw, double rotationPitch, double rotationRoll) {
+        if (Double.isNaN(rotationYaw))
+            throw new IllegalArgumentException("rotationYaw shall not be NaN!");
+        if (Double.isNaN(rotationPitch))
+            throw new IllegalArgumentException("rotationPitch shall not be NaN!");
+        if (Double.isNaN(rotationRoll))
+            throw new IllegalArgumentException("rotationRoll shall not be NaN!");
         this.rotationYaw = rotationYaw;
         this.rotationPitch = rotationPitch;
         this.rotationRoll = rotationRoll;
@@ -78,12 +84,15 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Constructs a newly allocated {@link Rotation} object with coordinates <b>[0, 0, 0]</b>
+     * Constructs an invalid {@link Rotation} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Rotation() {
-        this.rotationYaw = 0;
-        this.rotationPitch = 0;
-        this.rotationRoll = 0;
+    private Rotation() {
+        this.rotationYaw = Double.NaN;
+        this.rotationPitch = Double.NaN;
+        this.rotationRoll = Double.NaN;
     }
 
     /**
@@ -265,5 +274,16 @@ public class Rotation implements Vector<Rotation> {
      */
     public Rotation wrapRadians() {
         return new Rotation(MathUtilities.wrapRadians(this.rotationYaw), MathUtilities.wrapRadians(this.rotationPitch), MathUtilities.wrapRadians(this.rotationRoll));
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Rotation} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Rotation} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }

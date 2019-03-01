@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Vec3 implements Vector<Vec3> {
     /**
-     * A {@link Vec3} with all coordinates being NaN.
+     * A {@link Vec3} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Vec3 INVALID = new Vec3(Double.NaN, Double.NaN, Double.NaN);
+    public static final Vec3 INVALID = new Vec3();
 
     /**
      * A {@link Vec3} with coordinates <b>[0, 0, 0]</b>.
@@ -110,6 +110,12 @@ public class Vec3 implements Vector<Vec3> {
      * @param z the magnitude of the <b>z</b>-component of the {@link Vec3}.
      */
     public Vec3(double x, double y, double z) {
+        if (Double.isNaN(x))
+            throw new IllegalArgumentException("x shall not be NaN!");
+        if (Double.isNaN(y))
+            throw new IllegalArgumentException("y shall not be NaN!");
+        if (Double.isNaN(z))
+            throw new IllegalArgumentException("z shall not be NaN!");
         this.x = x;
         this.y = y;
         this.z = z;
@@ -127,12 +133,15 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     /**
-     * Constructs a newly allocated {@link Vec3} object with coordinates <b>[0, 0, 0]</b>
+     * Constructs an invalid {@link Vec3} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Vec3() {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+    private Vec3() {
+        this.x = Double.NaN;
+        this.y = Double.NaN;
+        this.z = Double.NaN;
     }
 
     private void calculateLength() {
@@ -554,5 +563,16 @@ public class Vec3 implements Vector<Vec3> {
      */
     public static Vec3 of(double x, double y) {
         return new Vec3(x, y);
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Vec3} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Vec3} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }

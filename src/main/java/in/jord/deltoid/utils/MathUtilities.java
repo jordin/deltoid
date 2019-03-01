@@ -17,19 +17,18 @@ public class MathUtilities {
      * @return the interpolated {@link Vec2}
      */
     public static Vec2 interpolate(Vec2 previous, Vec2 current, double ratio) {
-        if (current == null && previous == null) {
+        if (!current.isValid() && !previous.isValid()) {
             return Vec2.ORIGIN;
         }
-        if (previous == null) {
+        if (!previous.isValid()) {
             return current;
         }
-        if (current == null) {
+        if (!current.isValid()) {
             return previous;
         }
 
         return previous.add(current.subtract(previous).scale(ratio));
     }
-
 
     /**
      * Returns a {@link Vec3} of the weighted average of
@@ -41,13 +40,13 @@ public class MathUtilities {
      * @return the interpolated {@link Vec3}
      */
     public static Vec3 interpolate(Vec3 previous, Vec3 current, double ratio) {
-        if (current == null && previous == null) {
+        if (!current.isValid() && !previous.isValid()) {
             return Vec3.ORIGIN;
         }
-        if (previous == null) {
+        if (!previous.isValid()) {
             return current;
         }
-        if (current == null) {
+        if (!current.isValid()) {
             return previous;
         }
 
@@ -64,13 +63,13 @@ public class MathUtilities {
      * @return the interpolated {@link Rotation}
      */
     public static Rotation interpolate(Rotation previous, Rotation current, double ratio) {
-        if (current == null && previous == null) {
+        if (!current.isValid() && !previous.isValid()) {
             return Rotation.ORIGIN;
         }
-        if (previous == null) {
+        if (!previous.isValid()) {
             return current;
         }
-        if (current == null) {
+        if (!current.isValid()) {
             return previous;
         }
 
@@ -89,13 +88,13 @@ public class MathUtilities {
      * @return the interpolated {@link Rotation}
      */
     public static Rotation interpolateDeg(Rotation previous, Rotation current, double ratio) {
-        if (current == null && previous == null) {
+        if (!current.isValid() && !previous.isValid()) {
             return Rotation.ORIGIN;
         }
-        if (previous == null) {
+        if (!previous.isValid()) {
             return current;
         }
-        if (current == null) {
+        if (!current.isValid()) {
             return previous;
         }
 

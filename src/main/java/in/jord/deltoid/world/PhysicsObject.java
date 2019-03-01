@@ -175,7 +175,7 @@ public class PhysicsObject {
         previousRotation = rotation;
         position = position.add(velocity.scale(deltaTime));
 
-        if (velocity != null && acceleration != null) {
+        if (velocity.isValid() && acceleration.isValid()) {
             velocity = velocity.add(acceleration.scale(deltaTime));
         }
     }

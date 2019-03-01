@@ -81,4 +81,12 @@ public interface Vector<V> {
      * @return the {@link Vector}
      */
     V reverse();
+
+    /**
+     * Returns {@code true} IFF this {@link Vector} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Vector} is valid, {@code false} otherwise
+     */
+    boolean isValid();
 }

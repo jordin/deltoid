@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Vec2 implements Vector<Vec2> {
     /**
-     * A {@link Vec2} with all coordinates being NaN.
+     * A {@link Vec2} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Vec2 INVALID = new Vec2(Double.NaN, Double.NaN);
+    public static final Vec2 INVALID = new Vec2();
 
     /**
      * A {@link Vec2} with coordinates <b>[0, 0]</b>.
@@ -81,16 +81,23 @@ public class Vec2 implements Vector<Vec2> {
      * @param y the magnitude of the <b>y</b>-component of the {@link Vec2}.
      */
     public Vec2(double x, double y) {
+        if (Double.isNaN(x))
+            throw new IllegalArgumentException("x shall not be NaN!");
+        if (Double.isNaN(y))
+            throw new IllegalArgumentException("y shall not be NaN!");
         this.x = x;
         this.y = y;
     }
 
     /**
-     * Constructs a newly allocated {@link Vec2} object with coordinates <b>[0, 0]</b>
+     * Constructs an invalid {@link Vec2} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Vec2() {
-        this.x = 0;
-        this.y = 0;
+    private Vec2() {
+        this.x = Double.NaN;
+        this.y = Double.NaN;
     }
 
     private void calculateLength() {
@@ -260,5 +267,16 @@ public class Vec2 implements Vector<Vec2> {
      */
     public static Vec2 of(double x, double y) {
         return new Vec2(x, y);
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Vec2} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Vec2} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }
