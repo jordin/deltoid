@@ -71,7 +71,7 @@ public class Vec1 implements Vector<Vec1> {
     }
 
     /**
-     * Constructs an invalid {@link Rotation} instance.
+     * Constructs an invalid {@link Vec1} instance.
      *
      * @implNote Generally only one invalid instance, {@link #INVALID},
      * should exist per VM.
