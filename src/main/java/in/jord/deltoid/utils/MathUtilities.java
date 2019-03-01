@@ -149,7 +149,7 @@ public class MathUtilities {
     /**
      * Returns the <b>angle</b> restricted to:
      * <p>
-     * <b>\u03B8 \u2208 [-180\u00B0, 180\u00B0)</b>
+     * <b>θ ∈ [-180°, 180°)</b>
      *
      * @param angle to be restricted.
      * @return the wrapped <b>angle</b>
@@ -169,7 +169,7 @@ public class MathUtilities {
     /**
      * Returns the <b>angle</b> restricted to:
      * <p>
-     * <b>\u03B8 \u2208 [-\u03C0, \u03C0)</b>
+     * <b>θ ∈ [-π, π)</b>
      *
      * @param angle to be restricted.
      * @return the wrapped <b>angle</b>

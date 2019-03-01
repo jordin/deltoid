@@ -17,7 +17,7 @@ public class Direction implements Vector<Direction> {
     public static final Direction ORIGIN = new Direction(0, 0, 0);
 
     /**
-     * The magnitude of the <b>alpha (\u03B1)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>alpha (α)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>x</b>-axis.
      *
      * @serial
@@ -26,7 +26,7 @@ public class Direction implements Vector<Direction> {
     public final double alpha;
 
     /**
-     * The magnitude of the <b>beta (\u03B2)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>beta (β)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>y</b>-axis.
      *
      * @serial
@@ -35,7 +35,7 @@ public class Direction implements Vector<Direction> {
     public final double beta;
 
     /**
-     * The magnitude of the <b>gamma (\u03B3)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>gamma (γ)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>z</b>-axis.
      *
      * @serial
@@ -48,9 +48,9 @@ public class Direction implements Vector<Direction> {
     /**
      * Constructs a newly allocated {@link Direction} object.
      *
-     * @param alpha <b>(\u03B1)</b> the magnitude of the angle relative to the <b>x</b>-axis.
-     * @param beta  <b>(\u03B2)</b> the magnitude of the angle relative to the <b>y</b>-axis.
-     * @param gamma <b>(\u03B3)</b> the magnitude of the angle relative to the <b>z</b>-axis.
+     * @param alpha <b>(α)</b> the magnitude of the angle relative to the <b>x</b>-axis.
+     * @param beta  <b>(β)</b> the magnitude of the angle relative to the <b>y</b>-axis.
+     * @param gamma <b>(γ)</b> the magnitude of the angle relative to the <b>z</b>-axis.
      */
     public Direction(double alpha, double beta, double gamma) {
         if (Double.isNaN(alpha))
@@ -80,9 +80,9 @@ public class Direction implements Vector<Direction> {
      * Returns the magnitude of the {@link Direction}. Although the {@code length}
      * is meaningless on its own, it is useful to know that:
      * <p>
-     * <b>cos\u00B2(\u03B1) + cos\u00B2(\u03B2) + cos\u00B2(\u03B3) = 1.0</b>
+     * <b>cos²(α) + cos²(β) + cos²(γ) = 1.0</b>
      * <p>
-     * One use case for this is to sort \u0394{@link Direction}s.
+     * One use case for this is to sort Δ{@link Direction}s.
      *
      * @return the magnitude of the {@link Direction}
      */

@@ -80,7 +80,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial {@link Rotation} of <b>0.0</b>.
+     * with an initial <b>rotation</b> of <b>0.0</b>.
      *
      * @param initialPosition the initial location for the {@link PhysicsObject}.
      * @param velocity        the initial velocity for the {@link PhysicsObject}.
@@ -115,7 +115,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial {@link Rotation}, <b>velocity</b>,
+     * with an initial <b>rotation</b>, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      *
      * @param initialPosition the initial location for the {@link PhysicsObject}.
@@ -126,7 +126,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial <b>position</b>, {@link Rotation}, <b>velocity</b>,
+     * with an initial <b>position</b>, <b>rotation</b>, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      */
     public PhysicsObject() {
@@ -157,16 +157,16 @@ public class PhysicsObject {
 
     /**
      * Simulates the {@link PhysicsObject} for a time of <b>deltaTime</b>.
-     * This first caches the current <b>position</b> and  {@link Rotation} as
+     * This first caches the current <b>position</b> and <b>rotation</b> as
      * <b>previousPosition</b> and <b>previousRotation</b>, respectively.
      * <p>
      * The new <b>position</b> is then calculated with:
      * <p>
-     * <b><i>d\u209C = d\u2080 + vt</i></b>.
+     * <b><i>dₜ = d₀ + vt</i></b>.
      * <p>
      * The new <b>velocity</b> is then calculated with:
      * <p>
-     * <b><i>v\u209C = v\u2080 + at</i></b>.
+     * <b><i>vₜ = v₀ + at</i></b>.
      *
      * @param deltaTime the elapsed time to simulate this {@link PhysicsObject} for.
      */
@@ -192,7 +192,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Rotates {@link PhysicsObject} to the rotation {@link Rotation},
+     * Rotates {@link PhysicsObject} to the rotation <b>rotation</b>,
      * caching the previous rotation as <b>previousRotation</b>.
      *
      * @param rotation the new {@link Rotation}.
@@ -278,11 +278,11 @@ public class PhysicsObject {
      * Modifies the <b>velocity</b> of the {@link PhysicsObject}, by
      * calculating the <b>acceleration</b> with:
      * <p>
-     * <b><i>F = ma \u2263 a = F / m</i></b>.
+     * <b><i>F = ma ≣ a = F / m</i></b>.
      * <p>
      * This <b>acceleration</b> is then simulated for <b>deltaTime</b> by using:
      * <p>
-     * <b><i>v\u209C = v\u2080 + at</i></b>.
+     * <b><i>vₜ = v₀ + at</i></b>.
      *
      * @param force     the applied force vector.
      * @param deltaTime the time elapsed since this force was applied.

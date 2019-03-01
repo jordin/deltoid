@@ -64,7 +64,7 @@ public class Rotation implements Vector<Rotation> {
 
     /**
      * Constructs a newly allocated {@link Rotation} object,
-     * with a roll of <b>\u03B8=0.0</b>.
+     * with a roll of <b>θ=0.0</b>.
      *
      * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
      * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
@@ -75,7 +75,7 @@ public class Rotation implements Vector<Rotation> {
 
     /**
      * Constructs a newly allocated {@link Rotation} object,
-     * with a yaw and roll of <b>\u03B8=0.0</b>.
+     * with a yaw and roll of <b>θ=0.0</b>.
      *
      * @param rotationYaw the magnitude of the yaw of the {@link Rotation}.
      */
@@ -98,7 +98,7 @@ public class Rotation implements Vector<Rotation> {
     /**
      * Returns the magnitude of the {@link Rotation}.
      * <p>
-     * One use case for this is to sort \u0394{@link Rotation}s.
+     * One use case for this is to sort Δ{@link Rotation}s.
      *
      * @return the magnitude of the {@link Rotation}
      */
@@ -112,9 +112,9 @@ public class Rotation implements Vector<Rotation> {
 
 
     /**
-     * Returns the manhattan (taxicab) length of the {@link Direction}.
+     * Returns the manhattan (taxicab) length of the {@link Rotation}.
      *
-     * @return the manhattan length of the {@link Direction}
+     * @return the manhattan length of the {@link Rotation}
      */
     @Override
     public double manhattan() {
@@ -122,9 +122,9 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Breaks this {@link Direction} into its underlying components.
+     * Breaks this {@link Rotation} into its underlying components.
      *
-     * @return the components of this {@link Direction}
+     * @return the components of this {@link Rotation}
      */
     @Override
     public double[] components() {
@@ -259,7 +259,7 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Returns the {@link Rotation} with angles restricted to <b>\u03B8\u2208[-180\u00B0, 180\u00B0)</b>
+     * Returns the {@link Rotation} with angles restricted to <b>θ∈[-180°, 180°)</b>
      *
      * @return the {@link Rotation}
      */
@@ -268,7 +268,7 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Returns the {@link Rotation} with angles restricted to <b>\u03B8\u2208[-\u03C0, \u03C0)</b>
+     * Returns the {@link Rotation} with angles restricted to <b>θ∈[-π, π)</b>
      *
      * @return the {@link Rotation}
      */
