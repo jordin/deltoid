@@ -15,7 +15,7 @@ public class Vec0 implements Vector<Vec0> {
     private static final double[] COMPONENTS = new double[0];
 
     /**
-     * The <b>x</b>-component of the {@link Vec0}.
+     * Weather or not the {@link Vec0} is valid.
      *
      * @serial
      */
