@@ -144,7 +144,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return this.volume != 0 && this.pos1.isValid() && this.pos2.isValid();
+        return this.volume != 0;
     }
 
     /**

@@ -83,7 +83,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0 && this.centre.isValid();
+        return this.surfaceArea != 0;
     }
 
     /**

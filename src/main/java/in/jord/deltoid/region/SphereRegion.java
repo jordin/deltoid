@@ -94,7 +94,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0 && this.centre.isValid();
+        return this.volume != 0;
     }
 
     /**

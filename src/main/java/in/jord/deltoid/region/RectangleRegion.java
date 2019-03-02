@@ -134,7 +134,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      */
     @Override
     public boolean exists() {
-        return this.surfaceArea != 0 && this.pos1.isValid() && this.pos2.isValid();
+        return this.surfaceArea != 0;
     }
 
     /**
