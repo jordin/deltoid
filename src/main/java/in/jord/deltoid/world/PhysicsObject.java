@@ -61,7 +61,7 @@ public class PhysicsObject {
      * @serial
      */
     @JsonProperty("mass")
-    private double mass = 0;
+    private double mass;
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object.
@@ -175,8 +175,8 @@ public class PhysicsObject {
         this.previousRotation = this.rotation;
         this.position = this.position.add(this.velocity.scale(deltaTime));
 
-        if (velocity.isValid() && acceleration.isValid()) {
-            velocity = velocity.add(acceleration.scale(deltaTime));
+        if (this.velocity.isValid() && this.acceleration.isValid()) {
+            this.velocity = this.velocity.add(this.acceleration.scale(deltaTime));
         }
     }
 

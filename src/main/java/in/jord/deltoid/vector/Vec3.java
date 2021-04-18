@@ -1,7 +1,5 @@
 package in.jord.deltoid.vector;
 
-import java.util.Objects;
-
 public class Vec3 implements Vector<Vec3> {
     /**
      * A {@link Vec3} with all coordinates being {@link Double#NaN}.
@@ -188,16 +186,16 @@ public class Vec3 implements Vector<Vec3> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Vec3 vec3 = (Vec3) other;
-        return Double.compare(vec3.x, x) == 0 &&
-                Double.compare(vec3.y, y) == 0 &&
-                Double.compare(vec3.z, z) == 0;
+        return Double.compare(vec3.x, this.x) == 0 &&
+               Double.compare(vec3.y, this.y) == 0 &&
+               Double.compare(vec3.z, this.z) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, z);
+        return (Double.hashCode(this.x) * 31 + Double.hashCode(this.y)) * 31 + Double.hashCode(this.z);
     }
 
     /**

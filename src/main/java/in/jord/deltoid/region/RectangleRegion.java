@@ -6,6 +6,7 @@ import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -177,7 +178,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
             this.enclosedPoints = Arrays.asList(points);
         }
 
-        return this.enclosedPoints;
+        return Collections.unmodifiableList(this.enclosedPoints);
     }
 
     /**
@@ -234,22 +235,22 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      * true} if and only if the argument is not {@code null} and is a {@link RectangleRegion}
      * object that represents the same rotation angles as this {@link RectangleRegion}.
      *
-     * @param other the object to compare this {@link RectangleRegion} against
+     * @param object the object to compare this {@link RectangleRegion} against
      * @return {@code true} if the given object represents a {@link RectangleRegion}
      * equivalent to this {@link RectangleRegion}, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        RectangleRegion that = (RectangleRegion) other;
-        return Objects.equals(min, that.min) &&
-                Objects.equals(max, that.max) &&
-                Objects.equals(dimensions, that.dimensions);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || this.getClass() != object.getClass()) return false;
+        RectangleRegion other = (RectangleRegion) object;
+        return Objects.equals(this.min, other.min) &&
+               Objects.equals(this.max, other.max) &&
+               Objects.equals(this.dimensions, other.dimensions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(min, max, dimensions);
+        return this.min.hashCode() * 31 + this.max.hashCode();
     }
 }

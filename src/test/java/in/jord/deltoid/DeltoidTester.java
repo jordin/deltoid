@@ -6,8 +6,12 @@ import in.jord.deltoid.vector.Vec3;
  * Created by Jordin on 6/19/2017.
  * Jordin is still best hacker.
  */
-public class DeltoidTester {
+@SuppressWarnings("all")
+public final class DeltoidTester {
     private static long startTime;
+
+    private DeltoidTester() {
+    }
 
     public static void main(String[] arguments) throws Exception {
         startTime = System.nanoTime();
@@ -26,7 +30,7 @@ public class DeltoidTester {
     }
 
     public static void logWithTime(String test) {
-        System.out.println(String.format("%s: %fs", test, (System.nanoTime() - startTime) / 1000000000.0D));
+        System.out.printf("%s: %fs%n", test, (System.nanoTime() - startTime) / 1000000000.0D);
         startTime = System.nanoTime();
     }
 }

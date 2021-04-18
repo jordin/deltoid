@@ -2,8 +2,6 @@ package in.jord.deltoid.vector;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Objects;
-
 public class Vec2 implements Vector<Vec2> {
     /**
      * A {@link Vec2} with all coordinates being {@link Double#NaN}.
@@ -149,15 +147,15 @@ public class Vec2 implements Vector<Vec2> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Vec2 vec2 = (Vec2) other;
-        return Double.compare(vec2.x, x) == 0 &&
-                Double.compare(vec2.y, y) == 0;
+        return Double.compare(vec2.x, this.x) == 0 &&
+               Double.compare(vec2.y, this.y) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Double.hashCode(this.x) * 31 + Double.hashCode(this.y);
     }
 
     /**

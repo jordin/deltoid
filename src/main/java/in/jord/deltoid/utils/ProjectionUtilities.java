@@ -7,8 +7,11 @@ import in.jord.deltoid.geometry.Line;
 import java.util.List;
 import java.util.Optional;
 
-public class ProjectionUtilities {
+public final class ProjectionUtilities {
     private static final double TAU_OVER_4 = Math.PI / 2.0;
+
+    private ProjectionUtilities() {
+    }
 
     /**
      * Returns the {@link Rotation} required to have a view
@@ -50,7 +53,7 @@ public class ProjectionUtilities {
      * @param options     a {@link List} of the potential {@link Vec3}s to be considered.
      * @return the closest {@link Vec3} to an extended <b>lookVec</b>.
      */
-    public static Optional<Vec3> closestToLook(Vec3 eyePos, Vec3 lookVec, double maxDistance, List<Vec3> options) {
+    public static Optional<Vec3> closestToLook(Vec3 eyePos, Vec3 lookVec, double maxDistance, List<? extends Vec3> options) {
         Optional<Vec3> best = Optional.empty();
         double closest = maxDistance;
 
@@ -82,7 +85,7 @@ public class ProjectionUtilities {
      * @param maxDistance  the maximum distance to be considered.
      * @return the {@link Line} with the smallest length connecting a <b>start</b> location to an <b>end</b> location
      */
-    public static Optional<Line> optimalPath(List<Vec3> startOptions, List<Vec3> endOptions, double maxDistance) {
+    public static Optional<Line> optimalPath(List<? extends Vec3> startOptions, List<? extends Vec3> endOptions, double maxDistance) {
         Optional<Line> best = Optional.empty();
         double bestDistance = maxDistance;
         for (Vec3 potentialStart : startOptions) {

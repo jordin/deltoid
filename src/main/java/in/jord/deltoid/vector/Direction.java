@@ -1,10 +1,6 @@
 package in.jord.deltoid.vector;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Objects;
-
 public class Direction implements Vector<Direction> {
     /**
      * A {@link Direction} with all coordinates being {@link Double#NaN}.
@@ -124,16 +120,16 @@ public class Direction implements Vector<Direction> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Direction direction = (Direction) other;
-        return Double.compare(direction.alpha, alpha) == 0 &&
-                Double.compare(direction.beta, beta) == 0 &&
-                Double.compare(direction.gamma, gamma) == 0;
+        return Double.compare(direction.alpha, this.alpha) == 0 &&
+               Double.compare(direction.beta, this.beta) == 0 &&
+               Double.compare(direction.gamma, this.gamma) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alpha, beta, gamma);
+        return (Double.hashCode(this.alpha) * 31 + Double.hashCode(this.beta)) * 31 + Double.hashCode(this.gamma);
     }
 
     /**

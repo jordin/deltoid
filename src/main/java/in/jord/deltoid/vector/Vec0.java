@@ -1,7 +1,5 @@
 package in.jord.deltoid.vector;
 
-import java.util.Objects;
-
 public class Vec0 implements Vector<Vec0> {
     /**
      * This is used to represent an invalid or "null" value being returned from a function or similar.
@@ -70,14 +68,14 @@ public class Vec0 implements Vector<Vec0> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Vec0 vec0 = (Vec0) other;
-        return valid == vec0.valid;
+        return this.valid == vec0.valid;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(valid);
+        return Boolean.hashCode(this.valid);
     }
 
     /**

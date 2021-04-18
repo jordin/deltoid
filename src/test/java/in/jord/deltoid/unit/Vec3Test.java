@@ -8,6 +8,7 @@ import org.junit.Test;
  * Created by appledash on 7/17/17.
  * Blackjack is best pony.
  */
+@SuppressWarnings({"ConstantMathCall", "MagicNumber", "PointlessArithmeticExpression"})
 public class Vec3Test {
     @Test
     public void testGetters() {

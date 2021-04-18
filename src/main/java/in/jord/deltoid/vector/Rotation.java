@@ -3,8 +3,6 @@ package in.jord.deltoid.vector;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
 
-import java.util.Objects;
-
 public class Rotation implements Vector<Rotation> {
     /**
      * A {@link Rotation} with all coordinates being {@link Double#NaN}.
@@ -143,16 +141,16 @@ public class Rotation implements Vector<Rotation> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Rotation rotation = (Rotation) other;
-        return Double.compare(rotation.rotationYaw, rotationYaw) == 0 &&
-                Double.compare(rotation.rotationPitch, rotationPitch) == 0 &&
-                Double.compare(rotation.rotationRoll, rotationRoll) == 0;
+        return Double.compare(rotation.rotationYaw, this.rotationYaw) == 0 &&
+               Double.compare(rotation.rotationPitch, this.rotationPitch) == 0 &&
+               Double.compare(rotation.rotationRoll, this.rotationRoll) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rotationYaw, rotationPitch, rotationRoll);
+        return (Double.hashCode(this.rotationYaw) * 31 + Double.hashCode(this.rotationPitch)) * 31 + Double.hashCode(this.rotationRoll);
     }
 
     /**
