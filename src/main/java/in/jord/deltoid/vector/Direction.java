@@ -3,12 +3,14 @@ package in.jord.deltoid.vector;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Direction implements Vector<Direction> {
     /**
-     * A {@link Direction} with all coordinates being NaN.
+     * A {@link Direction} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Direction INVALID = new Direction(Double.NaN, Double.NaN, Double.NaN);
+    public static final Direction INVALID = new Direction();
 
     /**
      * A {@link Direction} with coordinates <b>[0, 0, 0]</b>.
@@ -49,18 +51,27 @@ public class Direction implements Vector<Direction> {
      * @param gamma <b>(γ)</b> the magnitude of the angle relative to the <b>z</b>-axis.
      */
     public Direction(double alpha, double beta, double gamma) {
+        if (Double.isNaN(alpha))
+            throw new IllegalArgumentException("alpha shall not be NaN!");
+        if (Double.isNaN(beta))
+            throw new IllegalArgumentException("beta shall not be NaN!");
+        if (Double.isNaN(gamma))
+            throw new IllegalArgumentException("gamma shall not be NaN!");
         this.alpha = alpha;
         this.beta = beta;
         this.gamma = gamma;
     }
 
     /**
-     * Constructs a newly allocated {@link Direction} object with coordinates <b>[0, 0, 0]</b>
+     * Constructs an invalid {@link Direction} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Direction() {
-        this.alpha = 0;
-        this.beta = 0;
-        this.gamma = 0;
+    private Direction() {
+        this.alpha = Double.NaN;
+        this.beta = Double.NaN;
+        this.gamma = Double.NaN;
     }
 
     /**
@@ -112,10 +123,17 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Direction) &&
-                ((Direction) other).alpha == this.alpha &&
-                ((Direction) other).beta == this.beta &&
-                ((Direction) other).gamma == this.gamma;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Direction direction = (Direction) other;
+        return Double.compare(direction.alpha, alpha) == 0 &&
+                Double.compare(direction.beta, beta) == 0 &&
+                Double.compare(direction.gamma, gamma) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alpha, beta, gamma);
     }
 
     /**
@@ -203,5 +221,32 @@ public class Direction implements Vector<Direction> {
     @Override
     public Direction reverse() {
         return new Direction(-this.alpha, -this.beta, -this.gamma);
+    }
+
+    /**
+     * Constructs a newly allocated {@link Direction} object.
+     *
+     * @param alpha <b>(α)</b> the magnitude of the angle relative to the <b>x</b>-axis.
+     * @param beta  <b>(β)</b> the magnitude of the angle relative to the <b>y</b>-axis.
+     * @param gamma <b>(γ)</b> the magnitude of the angle relative to the <b>z</b>-axis.
+     * @return new Direction instance
+     * @see Direction#Direction(double, double, double)
+     */
+    public static Direction of(double alpha, double beta, double gamma) {
+        if (Double.isNaN(alpha) || Double.isNaN(beta) || Double.isNaN(gamma)) {
+            return INVALID;
+        }
+        return new Direction(alpha, beta, gamma);
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Direction} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Direction} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }

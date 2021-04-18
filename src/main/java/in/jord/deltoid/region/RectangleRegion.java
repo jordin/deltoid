@@ -7,12 +7,18 @@ import in.jord.deltoid.vector.Vec2;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     /**
      * A {@link RectangleRegion} with coordinates <b>[0, 0]</b> and area <b>a = 0.0</b>.
      */
     public static final RectangleRegion ORIGIN = new RectangleRegion(Vec2.ORIGIN, Vec2.ORIGIN);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final RectangleRegion INVALID = new RectangleRegion(Vec2.INVALID, Vec2.INVALID);
 
     /**
      * The lower bounds of this {@link RectangleRegion}.
@@ -81,6 +87,16 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     public RectangleRegion(Vec2 pos1, Vec2 pos2) {
         this.pos1 = pos1;
         this.pos2 = pos2;
+
+        if (!pos1.isValid() || !pos2.isValid()) {
+            this.min = Vec2.INVALID;
+            this.max = Vec2.INVALID;
+
+            this.dimensions = Vec2.INVALID;
+
+            this.surfaceArea = 0;
+            return;
+        }
 
         this.min = new Vec2(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y));
         this.max = new Vec2(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y));
@@ -211,5 +227,29 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
         Vec2 newMax = new Vec2(this.max.x + expansion, this.max.y + expansion);
 
         return new RectangleRegion(newMin, newMax);
+    }
+
+    /**
+     * Compares this {@link RectangleRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link RectangleRegion}
+     * object that represents the same rotation angles as this {@link RectangleRegion}.
+     *
+     * @param other the object to compare this {@link RectangleRegion} against
+     * @return {@code true} if the given object represents a {@link RectangleRegion}
+     * equivalent to this {@link RectangleRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        RectangleRegion that = (RectangleRegion) other;
+        return Objects.equals(min, that.min) &&
+                Objects.equals(max, that.max) &&
+                Objects.equals(dimensions, that.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(min, max, dimensions);
     }
 }

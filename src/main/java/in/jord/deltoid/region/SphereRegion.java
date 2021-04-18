@@ -5,12 +5,18 @@ import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SphereRegion implements Region<SphereRegion, Vec3> {
     /**
      * A {@link SphereRegion} with coordinates <b>[0, 0, 0]</b> and radius <b>r = 0.0</b>.
      */
     public static final SphereRegion ORIGIN = new SphereRegion(Vec3.ORIGIN, 0);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final SphereRegion INVALID = new SphereRegion(Vec3.INVALID, 0);
 
     private static double TWO_TAU = 4.0 * Math.PI;
     private static double TWO_OVER_THREE_TIMES_TAU = 4.0 / 3.0 * Math.PI;
@@ -51,8 +57,13 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
         this.centre = centre;
         this.radius = radius;
 
-        this.volume = TWO_OVER_THREE_TIMES_TAU * radius * radius * radius;
-        this.surfaceArea = TWO_TAU * radius * radius;
+        if (centre.isValid()) {
+            this.volume = TWO_OVER_THREE_TIMES_TAU * radius * radius * radius;
+            this.surfaceArea = TWO_TAU * radius * radius;
+        } else {
+            this.volume = 0;
+            this.surfaceArea = 0;
+        }
     }
 
     /**
@@ -83,7 +94,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0;
+        return this.volume != 0;
     }
 
     /**
@@ -129,5 +140,28 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
     @Override
     public SphereRegion offset(Vec3 offset) {
         return new SphereRegion(this.centre.add(offset), this.radius);
+    }
+
+    /**
+     * Compares this {@link SphereRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link SphereRegion}
+     * object that represents the same rotation angles as this {@link SphereRegion}.
+     *
+     * @param other the object to compare this {@link SphereRegion} against
+     * @return {@code true} if the given object represents a {@link SphereRegion}
+     * equivalent to this {@link SphereRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        SphereRegion that = (SphereRegion) other;
+        return Double.compare(that.radius, radius) == 0 &&
+                Objects.equals(centre, that.centre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(centre, radius);
     }
 }

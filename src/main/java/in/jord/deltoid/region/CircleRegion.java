@@ -5,12 +5,18 @@ import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CircleRegion implements Region<CircleRegion, Vec2> {
     /**
      * A {@link CircleRegion} with coordinates <b>[0, 0]</b> and radius <b>r = 0.0</b>.
      */
     public static final CircleRegion ORIGIN = new CircleRegion(Vec2.ORIGIN, 0);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final CircleRegion INVALID = new CircleRegion(Vec2.INVALID, 0);
 
     private static double HALF_TAU = Math.PI;
 
@@ -42,7 +48,11 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
         this.centre = centre;
         this.radius = radius;
 
-        this.surfaceArea = HALF_TAU * radius * radius;
+        if (centre.isValid()) {
+            this.surfaceArea = HALF_TAU * radius * radius;
+        } else {
+            this.surfaceArea = 0;
+        }
     }
 
     /**
@@ -73,7 +83,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public boolean exists() {
-        return this.radius != 0;
+        return this.surfaceArea != 0;
     }
 
     /**
@@ -119,5 +129,28 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
     @Override
     public CircleRegion offset(Vec2 offset) {
         return new CircleRegion(this.centre.add(offset), this.radius);
+    }
+
+    /**
+     * Compares this {@link CircleRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link CircleRegion}
+     * object that represents the same rotation angles as this {@link CircleRegion}.
+     *
+     * @param other the object to compare this {@link CircleRegion} against
+     * @return {@code true} if the given object represents a {@link CircleRegion}
+     * equivalent to this {@link CircleRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        CircleRegion that = (CircleRegion) other;
+        return Double.compare(that.radius, radius) == 0 &&
+                Objects.equals(centre, that.centre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(centre, radius);
     }
 }

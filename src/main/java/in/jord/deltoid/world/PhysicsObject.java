@@ -80,7 +80,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial {@link Rotation} of <b>0.0</b>.
+     * with an initial <b>rotation</b> of <b>0.0</b>.
      *
      * @param initialPosition the initial location for the {@link PhysicsObject}.
      * @param velocity        the initial velocity for the {@link PhysicsObject}.
@@ -115,7 +115,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial {@link Rotation}, <b>velocity</b>,
+     * with an initial <b>rotation</b>, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      *
      * @param initialPosition the initial location for the {@link PhysicsObject}.
@@ -126,7 +126,7 @@ public class PhysicsObject {
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object,
-     * with an initial <b>position</b>, {@link Rotation}, <b>velocity</b>,
+     * with an initial <b>position</b>, <b>rotation</b>, <b>velocity</b>,
      * and <b>acceleration</b> of <b>0.0</b>.
      */
     public PhysicsObject() {
@@ -157,7 +157,7 @@ public class PhysicsObject {
 
     /**
      * Simulates the {@link PhysicsObject} for a time of <b>deltaTime</b>.
-     * This first caches the current <b>position</b> and  {@link Rotation} as
+     * This first caches the current <b>position</b> and <b>rotation</b> as
      * <b>previousPosition</b> and <b>previousRotation</b>, respectively.
      * <p>
      * The new <b>position</b> is then calculated with:
@@ -175,8 +175,8 @@ public class PhysicsObject {
         this.previousRotation = this.rotation;
         this.position = this.position.add(this.velocity.scale(deltaTime));
 
-        if (this.velocity != null && this.acceleration != null) {
-            this.velocity = this.velocity.add(this.acceleration.scale(deltaTime));
+        if (velocity.isValid() && acceleration.isValid()) {
+            velocity = velocity.add(acceleration.scale(deltaTime));
         }
     }
 
@@ -192,7 +192,7 @@ public class PhysicsObject {
     }
 
     /**
-     * Rotates {@link PhysicsObject} to the rotation {@link Rotation},
+     * Rotates {@link PhysicsObject} to the rotation <b>rotation</b>,
      * caching the previous rotation as <b>previousRotation</b>.
      *
      * @param rotation the new {@link Rotation}.

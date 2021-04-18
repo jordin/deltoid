@@ -3,12 +3,14 @@ package in.jord.deltoid.vector;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
 
+import java.util.Objects;
+
 public class Rotation implements Vector<Rotation> {
     /**
-     * A {@link Rotation} with all coordinates being NaN.
+     * A {@link Rotation} with all coordinates being {@link Double#NaN}.
      * This is used to represent an invalid or "null" value being returned from a function or similar.
      */
-    public static final Rotation INVALID = new Rotation(Double.NaN, Double.NaN, Double.NaN);
+    public static final Rotation INVALID = new Rotation();
 
     /**
      * A {@link Rotation} with coordinates <b>[0, 0, 0]</b>.
@@ -49,6 +51,12 @@ public class Rotation implements Vector<Rotation> {
      * @param rotationRoll  the magnitude of the roll of the {@link Rotation}.
      */
     public Rotation(double rotationYaw, double rotationPitch, double rotationRoll) {
+        if (Double.isNaN(rotationYaw))
+            throw new IllegalArgumentException("rotationYaw shall not be NaN!");
+        if (Double.isNaN(rotationPitch))
+            throw new IllegalArgumentException("rotationPitch shall not be NaN!");
+        if (Double.isNaN(rotationRoll))
+            throw new IllegalArgumentException("rotationRoll shall not be NaN!");
         this.rotationYaw = rotationYaw;
         this.rotationPitch = rotationPitch;
         this.rotationRoll = rotationRoll;
@@ -76,12 +84,15 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Constructs a newly allocated {@link Rotation} object with coordinates <b>[0, 0, 0]</b>
+     * Constructs an invalid {@link Rotation} instance.
+     *
+     * @implNote Generally only one invalid instance, {@link #INVALID},
+     * should exist per VM.
      */
-    public Rotation() {
-        this.rotationYaw = 0;
-        this.rotationPitch = 0;
-        this.rotationRoll = 0;
+    private Rotation() {
+        this.rotationYaw = Double.NaN;
+        this.rotationPitch = Double.NaN;
+        this.rotationRoll = Double.NaN;
     }
 
     /**
@@ -101,9 +112,9 @@ public class Rotation implements Vector<Rotation> {
 
 
     /**
-     * Returns the manhattan (taxicab) length of the {@link Direction}.
+     * Returns the manhattan (taxicab) length of the {@link Rotation}.
      *
-     * @return the manhattan length of the {@link Direction}
+     * @return the manhattan length of the {@link Rotation}
      */
     @Override
     public double manhattan() {
@@ -111,9 +122,9 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Breaks this {@link Direction} into its underlying components.
+     * Breaks this {@link Rotation} into its underlying components.
      *
-     * @return the components of this {@link Direction}
+     * @return the components of this {@link Rotation}
      */
     @Override
     public double[] components() {
@@ -131,10 +142,17 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Rotation) &&
-                ((Rotation) other).rotationYaw == this.rotationYaw &&
-                ((Rotation) other).rotationPitch == this.rotationPitch &&
-                ((Rotation) other).rotationRoll == this.rotationRoll;
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Rotation rotation = (Rotation) other;
+        return Double.compare(rotation.rotationYaw, rotationYaw) == 0 &&
+                Double.compare(rotation.rotationPitch, rotationPitch) == 0 &&
+                Double.compare(rotation.rotationRoll, rotationRoll) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rotationYaw, rotationPitch, rotationRoll);
     }
 
     /**
@@ -256,5 +274,48 @@ public class Rotation implements Vector<Rotation> {
      */
     public Rotation wrapRadians() {
         return new Rotation(MathUtilities.wrapRadians(this.rotationYaw), MathUtilities.wrapRadians(this.rotationPitch), MathUtilities.wrapRadians(this.rotationRoll));
+    }
+
+    /**
+     * Constructs a newly allocated {@link Rotation} object.
+     *
+     * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
+     * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
+     * @param rotationRoll  the magnitude of the roll of the {@link Rotation}.
+     * @return new Rotation instance
+     * @see Rotation#Rotation(double, double, double)
+     */
+    public static Rotation of(double rotationYaw, double rotationPitch, double rotationRoll) {
+        if (Double.isNaN(rotationYaw) || Double.isNaN(rotationPitch) || Double.isNaN(rotationRoll)) {
+            return INVALID;
+        }
+        return new Rotation(rotationYaw, rotationPitch, rotationRoll);
+    }
+
+    /**
+     * Construct and return a newly-allocated Rotation object,
+     * with a roll of <b>θ=0.0</b>.
+     *
+     * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
+     * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
+     * @return new Vec3 instance
+     * @see Vec3#Vec3(double, double)
+     */
+    public static Rotation of(double rotationYaw, double rotationPitch) {
+        if (Double.isNaN(rotationYaw) || Double.isNaN(rotationPitch)) {
+            return INVALID;
+        }
+        return new Rotation(rotationYaw, rotationPitch);
+    }
+
+    /**
+     * Returns {@code true} IFF this {@link Rotation} is
+     * considered to be valid, with each {@code component ∈ ℝ}.
+     *
+     * @return {@code true} if the {@link Rotation} is valid, {@code false} otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return this != INVALID;
     }
 }

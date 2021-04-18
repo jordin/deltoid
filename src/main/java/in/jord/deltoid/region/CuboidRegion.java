@@ -7,12 +7,18 @@ import in.jord.deltoid.vector.Vec3;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     /**
      * A {@link CuboidRegion} with coordinates <b>[0, 0, 0]</b> and volume <b>v = 0.0</b>.
      */
     public static final CuboidRegion ORIGIN = new CuboidRegion(Vec3.ORIGIN, Vec3.ORIGIN);
+
+    /**
+     * This is used to represent an invalid or "null" value being returned from a function or similar.
+     */
+    public static final CuboidRegion INVALID = new CuboidRegion(Vec3.INVALID, Vec3.INVALID);
 
     /**
      * The lower bounds of this {@link CuboidRegion}.
@@ -89,6 +95,17 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     public CuboidRegion(Vec3 pos1, Vec3 pos2) {
         this.pos1 = pos1;
         this.pos2 = pos2;
+
+        if (!pos1.isValid() || !pos2.isValid()) {
+            this.min = Vec3.INVALID;
+            this.max = Vec3.INVALID;
+
+            this.dimensions = Vec3.INVALID;
+
+            this.volume = 0;
+            this.surfaceArea = 0;
+            return;
+        }
 
         this.min = new Vec3(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y), Math.min(pos1.z, pos2.z));
         this.max = new Vec3(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y), Math.max(pos1.z, pos2.z));
@@ -224,5 +241,29 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
         Vec3 newMax = new Vec3(this.max.x + expansion, this.max.y + expansion, this.max.z + expansion);
 
         return new CuboidRegion(newMin, newMax);
+    }
+
+    /**
+     * Compares this {@link CuboidRegion} to the specified object.  The result is {@code
+     * true} if and only if the argument is not {@code null} and is a {@link CuboidRegion}
+     * object that represents the same rotation angles as this {@link CuboidRegion}.
+     *
+     * @param other the object to compare this {@link CuboidRegion} against
+     * @return {@code true} if the given object represents a {@link CuboidRegion}
+     * equivalent to this {@link CuboidRegion}, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        CuboidRegion that = (CuboidRegion) other;
+        return Objects.equals(min, that.min) &&
+                Objects.equals(max, that.max) &&
+                Objects.equals(dimensions, that.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(min, max, dimensions);
     }
 }
