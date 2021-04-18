@@ -1,6 +1,7 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Direction implements Vector<Direction> {
     /**
@@ -15,40 +16,37 @@ public class Direction implements Vector<Direction> {
     public static final Direction ORIGIN = new Direction(0, 0, 0);
 
     /**
-     * The magnitude of the <b>alpha (\u03B1)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>alpha (α)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>x</b>-axis.
      *
      * @serial
      */
-    @SerializedName("alpha")
     public final double alpha;
 
     /**
-     * The magnitude of the <b>beta (\u03B2)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>beta (β)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>y</b>-axis.
      *
      * @serial
      */
-    @SerializedName("beta")
     public final double beta;
 
     /**
-     * The magnitude of the <b>gamma (\u03B3)</b> angle of the {@link Direction}.
+     * The magnitude of the <b>gamma (γ)</b> angle of the {@link Direction}.
      * This is the angle relative to the <b>z</b>-axis.
      *
      * @serial
      */
-    @SerializedName("gamma")
     public final double gamma;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Direction} object.
      *
-     * @param alpha <b>(\u03B1)</b> the magnitude of the angle relative to the <b>x</b>-axis.
-     * @param beta  <b>(\u03B2)</b> the magnitude of the angle relative to the <b>y</b>-axis.
-     * @param gamma <b>(\u03B3)</b> the magnitude of the angle relative to the <b>z</b>-axis.
+     * @param alpha <b>(α)</b> the magnitude of the angle relative to the <b>x</b>-axis.
+     * @param beta  <b>(β)</b> the magnitude of the angle relative to the <b>y</b>-axis.
+     * @param gamma <b>(γ)</b> the magnitude of the angle relative to the <b>z</b>-axis.
      */
     public Direction(double alpha, double beta, double gamma) {
         this.alpha = alpha;
@@ -69,18 +67,18 @@ public class Direction implements Vector<Direction> {
      * Returns the magnitude of the {@link Direction}. Although the {@code length}
      * is meaningless on its own, it is useful to know that:
      * <p>
-     * <b>cos\u00B2(\u03B1) + cos\u00B2(\u03B2) + cos\u00B2(\u03B3) = 1.0</b>
+     * <b>cos²(α) + cos²(β) + cos²(γ) = 1.0</b>
      * <p>
-     * One use case for this is to sort \u0394{@link Direction}s.
+     * One use case for this is to sort Δ{@link Direction}s.
      *
      * @return the magnitude of the {@link Direction}
      */
     @Override
     public double length() {
-        if (length == -1) {
-            length = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta + this.gamma * this.gamma);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta + this.gamma * this.gamma);
         }
-        return length;
+        return this.length;
     }
 
     /**
@@ -128,7 +126,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction normalize() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction normalize is meaningless");
     }
 
     /**
@@ -140,7 +138,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction normalize(double length) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction normalize is meaningless");
     }
 
     /**
@@ -152,7 +150,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction scale(double scaleFactor) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction scale is meaningless");
     }
 
     /**

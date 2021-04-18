@@ -1,7 +1,5 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Vec3 implements Vector<Vec3> {
     /**
      * A {@link Vec3} with all coordinates being NaN.
@@ -79,7 +77,6 @@ public class Vec3 implements Vector<Vec3> {
      *
      * @serial
      */
-    @SerializedName("x")
     public final double x;
 
     /**
@@ -87,7 +84,6 @@ public class Vec3 implements Vector<Vec3> {
      *
      * @serial
      */
-    @SerializedName("y")
     public final double y;
 
     /**
@@ -95,10 +91,9 @@ public class Vec3 implements Vector<Vec3> {
      *
      * @serial
      */
-    @SerializedName("z")
     public final double z;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Vec3} object.
@@ -134,8 +129,8 @@ public class Vec3 implements Vector<Vec3> {
     }
 
     private void calculateLength() {
-        if (length == -1) {
-            length = Math.sqrt(x * x + y * y + z * z);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         }
     }
 
@@ -146,8 +141,8 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public double length() {
-        calculateLength();
-        return length;
+        this.calculateLength();
+        return this.length;
     }
 
     /**
@@ -157,7 +152,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public double manhattan() {
-        return Math.abs(x) + Math.abs(y) + Math.abs(z);
+        return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z);
     }
 
     /**
@@ -167,7 +162,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public double[] components() {
-        return new double[]{x, y, z};
+        return new double[]{this.x, this.y, this.z};
     }
 
     /**
@@ -194,11 +189,11 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 normalize() {
-        calculateLength();
-        if (length == 0) {
+        this.calculateLength();
+        if (this.length == 0) {
             return ZERO;
         }
-        return new Vec3(x / length, y / length, z / length);
+        return new Vec3(this.x / this.length, this.y / this.length, this.z / this.length);
     }
 
     /**
@@ -209,7 +204,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 normalize(double length) {
-        return normalize().scale(length);
+        return this.normalize().scale(length);
     }
 
     /**
@@ -220,7 +215,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 scale(double scaleFactor) {
-        return new Vec3(x * scaleFactor, y * scaleFactor, z * scaleFactor);
+        return new Vec3(this.x * scaleFactor, this.y * scaleFactor, this.z * scaleFactor);
     }
 
     /**
@@ -231,7 +226,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 add(Vec3 addend) {
-        return new Vec3(x + addend.x, y + addend.y, z + addend.z);
+        return new Vec3(this.x + addend.x, this.y + addend.y, this.z + addend.z);
     }
 
     /**
@@ -242,7 +237,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 subtract(Vec3 subtrahend) {
-        return new Vec3(x - subtrahend.x, y - subtrahend.y, z - subtrahend.z);
+        return new Vec3(this.x - subtrahend.x, this.y - subtrahend.y, this.z - subtrahend.z);
     }
 
     /**
@@ -252,7 +247,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 floor() {
-        return new Vec3(Math.floor(x), Math.floor(y), Math.floor(z));
+        return new Vec3(Math.floor(this.x), Math.floor(this.y), Math.floor(this.z));
     }
 
     /**
@@ -262,7 +257,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 ceil() {
-        return new Vec3(Math.ceil(x), Math.ceil(y), Math.ceil(z));
+        return new Vec3(Math.ceil(this.x), Math.ceil(this.y), Math.ceil(this.z));
     }
 
     /**
@@ -272,7 +267,7 @@ public class Vec3 implements Vector<Vec3> {
      */
     @Override
     public Vec3 reverse() {
-        return new Vec3(-x, -y, -z);
+        return new Vec3(-this.x, -this.y, -this.z);
     }
 
 
@@ -283,7 +278,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 dot(Vec3 vec3) {
-        return new Vec3(x * vec3.x, y * vec3.y, z * vec3.z);
+        return new Vec3(this.x * vec3.x, this.y * vec3.y, this.z * vec3.z);
     }
 
     /**
@@ -293,7 +288,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 cross(Vec3 vec3) {
-        return new Vec3(y * vec3.z - z * vec3.y, z * vec3.x - x * vec3.z, x * vec3.y - y * vec3.x);
+        return new Vec3(this.y * vec3.z - this.z * vec3.y, this.z * vec3.x - this.x * vec3.z, this.x * vec3.y - this.y * vec3.x);
     }
 
     /**
@@ -302,10 +297,10 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Direction}
      */
     public Direction direction() {
-        calculateLength();
-        double alpha = Math.acos(x / length);
-        double beta = Math.acos(y / length);
-        double gamma = Math.acos(z / length);
+        this.calculateLength();
+        double alpha = Math.acos(this.x / this.length);
+        double beta = Math.acos(this.y / this.length);
+        double gamma = Math.acos(this.z / this.length);
         return new Direction(alpha, beta, gamma);
     }
 
@@ -316,7 +311,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 up(double distance) {
-        return new Vec3(x, y + distance, z);
+        return new Vec3(this.x, this.y + distance, this.z);
     }
 
     /**
@@ -326,7 +321,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 down(double distance) {
-        return new Vec3(x, y - distance, z);
+        return new Vec3(this.x, this.y - distance, this.z);
     }
 
     /**
@@ -336,7 +331,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 powElements(double exponent) {
-        return new Vec3(Math.pow(x, exponent), Math.pow(y, exponent), Math.pow(z, exponent));
+        return new Vec3(Math.pow(this.x, exponent), Math.pow(this.y, exponent), Math.pow(this.z, exponent));
     }
 
     /**
@@ -346,7 +341,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 multiplyElements(Vec3 multiplier) {
-        return new Vec3(x * multiplier.x, y * multiplier.y, z * multiplier.z);
+        return new Vec3(this.x * multiplier.x, this.y * multiplier.y, this.z * multiplier.z);
     }
 
     /**
@@ -356,7 +351,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 multiplyElements(double multiplier) {
-        return new Vec3(x * multiplier, y * multiplier, z * multiplier);
+        return new Vec3(this.x * multiplier, this.y * multiplier, this.z * multiplier);
     }
 
     /**
@@ -366,7 +361,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 divideElements(Vec3 denominator) {
-        return new Vec3(x / denominator.x, y / denominator.y, z / denominator.z);
+        return new Vec3(this.x / denominator.x, this.y / denominator.y, this.z / denominator.z);
     }
 
     /**
@@ -376,7 +371,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 divideElements(double denominator) {
-        return new Vec3(x / denominator, y / denominator, z / denominator);
+        return new Vec3(this.x / denominator, this.y / denominator, this.z / denominator);
     }
 
     /**
@@ -388,7 +383,7 @@ public class Vec3 implements Vector<Vec3> {
     public Vec3 rotateAboutX(double theta) {
         double sin = Math.sin(theta);
         double cos = Math.cos(theta);
-        return new Vec3(x, y * cos - z * sin, y * sin + z * cos);
+        return new Vec3(this.x, this.y * cos - this.z * sin, this.y * sin + this.z * cos);
     }
 
     /**
@@ -400,7 +395,7 @@ public class Vec3 implements Vector<Vec3> {
     public Vec3 rotateAboutY(double theta) {
         double sin = Math.sin(theta);
         double cos = Math.cos(theta);
-        return new Vec3(x * cos + z * sin, y, -x * sin + z * cos);
+        return new Vec3(this.x * cos + this.z * sin, this.y, -this.x * sin + this.z * cos);
     }
 
     /**
@@ -412,7 +407,7 @@ public class Vec3 implements Vector<Vec3> {
     public Vec3 rotateAboutZ(double theta) {
         double sin = Math.sin(theta);
         double cos = Math.cos(theta);
-        return new Vec3(x * cos - y * sin, x * sin + y * cos, z);
+        return new Vec3(this.x * cos - this.y * sin, this.x * sin + this.y * cos, this.z);
     }
 
     /**
@@ -422,7 +417,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 rotateAboutXDeg(double theta) {
-        return rotateAboutX(Math.toRadians(theta));
+        return this.rotateAboutX(Math.toRadians(theta));
     }
 
     /**
@@ -432,7 +427,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 rotateAboutYDeg(double theta) {
-        return rotateAboutY(Math.toRadians(theta));
+        return this.rotateAboutY(Math.toRadians(theta));
     }
 
     /**
@@ -442,7 +437,7 @@ public class Vec3 implements Vector<Vec3> {
      * @return the {@link Vec3}
      */
     public Vec3 rotateAboutZDeg(double theta) {
-        return rotateAboutZ(Math.toRadians(theta));
+        return this.rotateAboutZ(Math.toRadians(theta));
     }
 
     /**

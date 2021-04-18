@@ -1,6 +1,6 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
 
@@ -19,7 +19,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("centre")
+    @JsonProperty("centre")
     public final Vec2 centre;
 
     /**
@@ -27,7 +27,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("radius")
+    @JsonProperty("radius")
     public final double radius;
 
     /**
@@ -35,7 +35,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("area")
+    @JsonProperty("area")
     private double surfaceArea;
 
     public CircleRegion(Vec2 centre, double radius) {
@@ -95,7 +95,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public List<Vec2> enclosedPoints() {
-        Vec2 bounds = new Vec2(radius, radius);
+        Vec2 bounds = new Vec2(this.radius, this.radius);
         return UnionUtilities.overlap(new RectangleRegion(this.centre.add(bounds), this.centre.subtract(bounds)), this);
     }
 
@@ -118,6 +118,6 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public CircleRegion offset(Vec2 offset) {
-        return new CircleRegion(centre.add(offset), radius);
+        return new CircleRegion(this.centre.add(offset), this.radius);
     }
 }

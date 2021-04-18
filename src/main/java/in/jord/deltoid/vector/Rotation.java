@@ -1,6 +1,6 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
 
 public class Rotation implements Vector<Rotation> {
@@ -20,7 +20,7 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("yaw")
+    @JsonProperty("yaw")
     public final double rotationYaw;
 
     /**
@@ -28,7 +28,7 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("pitch")
+    @JsonProperty("pitch")
     public final double rotationPitch;
 
     /**
@@ -36,10 +36,10 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("roll")
+    @JsonProperty("roll")
     public final double rotationRoll;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Rotation} object.
@@ -56,7 +56,7 @@ public class Rotation implements Vector<Rotation> {
 
     /**
      * Constructs a newly allocated {@link Rotation} object,
-     * with a roll of <b>\u03B8=0.0</b>.
+     * with a roll of <b>θ=0.0</b>.
      *
      * @param rotationYaw   the magnitude of the yaw of the {@link Rotation}.
      * @param rotationPitch the magnitude of the pitch of the {@link Rotation}.
@@ -67,7 +67,7 @@ public class Rotation implements Vector<Rotation> {
 
     /**
      * Constructs a newly allocated {@link Rotation} object,
-     * with a yaw and roll of <b>\u03B8=0.0</b>.
+     * with a yaw and roll of <b>θ=0.0</b>.
      *
      * @param rotationYaw the magnitude of the yaw of the {@link Rotation}.
      */
@@ -87,16 +87,16 @@ public class Rotation implements Vector<Rotation> {
     /**
      * Returns the magnitude of the {@link Rotation}.
      * <p>
-     * One use case for this is to sort \u0394{@link Rotation}s.
+     * One use case for this is to sort Δ{@link Rotation}s.
      *
      * @return the magnitude of the {@link Rotation}
      */
     @Override
     public double length() {
-        if (length == -1) {
-            length = Math.sqrt(this.rotationYaw * this.rotationYaw + this.rotationPitch * this.rotationPitch + this.rotationRoll * this.rotationRoll);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.rotationYaw * this.rotationYaw + this.rotationPitch * this.rotationPitch + this.rotationRoll * this.rotationRoll);
         }
-        return length;
+        return this.length;
     }
 
 
@@ -117,7 +117,7 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public double[] components() {
-        return new double[]{rotationYaw, rotationPitch, rotationRoll};
+        return new double[]{this.rotationYaw, this.rotationPitch, this.rotationRoll};
     }
 
     /**
@@ -144,7 +144,7 @@ public class Rotation implements Vector<Rotation> {
      * @throws UnsupportedOperationException {@link Rotation} {@code normalize} is meaningless.
      */
     public Rotation normalize() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Rotation normalize is meaningless.");
     }
 
     /**
@@ -156,7 +156,7 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public Rotation normalize(double length) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Rotation normalize is meaningless.");
     }
 
     /**
@@ -241,7 +241,7 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Returns the {@link Rotation} with angles restricted to <b>\u03B8\u2208[-180\u00B0, 180\u00B0)</b>
+     * Returns the {@link Rotation} with angles restricted to <b>θ∈[-180°, 180°)</b>
      *
      * @return the {@link Rotation}
      */
@@ -250,7 +250,7 @@ public class Rotation implements Vector<Rotation> {
     }
 
     /**
-     * Returns the {@link Rotation} with angles restricted to <b>\u03B8\u2208[-\u03C0, \u03C0)</b>
+     * Returns the {@link Rotation} with angles restricted to <b>θ∈[-π, π)</b>
      *
      * @return the {@link Rotation}
      */

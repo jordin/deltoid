@@ -1,9 +1,9 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import in.jord.deltoid.utils.MathUtilities;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
-import in.jord.deltoid.utils.MathUtilities;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("min")
+    @JsonProperty("min")
     public final Vec2 min;
 
     /**
@@ -29,7 +29,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("max")
+    @JsonProperty("max")
     public final Vec2 max;
 
     /**
@@ -37,7 +37,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("pos1")
+    @JsonProperty("pos1")
     public final Vec2 pos1;
 
     /**
@@ -45,7 +45,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("pos2")
+    @JsonProperty("pos2")
     public final Vec2 pos2;
 
     /**
@@ -54,7 +54,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("dimensions")
+    @JsonProperty("dimensions")
     public final Vec2 dimensions;
 
     /**
@@ -62,7 +62,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("area")
+    @JsonProperty("area")
     private final double surfaceArea;
 
     /**
@@ -70,7 +70,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      *
      * @serial
      */
-    private List<Vec2> enclosedPoints;
+    private transient List<Vec2> enclosedPoints;
 
     /**
      * Constructs a newly allocated {@link RectangleRegion} object.
@@ -85,7 +85,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
         this.min = new Vec2(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y));
         this.max = new Vec2(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y));
 
-        this.dimensions = new Vec2(max.x - min.x, max.y - min.y);
+        this.dimensions = new Vec2(this.max.x - this.min.x, this.max.y - this.min.y);
 
         this.surfaceArea = this.dimensions.x * this.dimensions.y;
     }
@@ -130,8 +130,8 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      */
     @Override
     public boolean contains(Vec2 location) {
-        return (location.x >= min.x && location.x <= max.x)
-                && (location.y >= min.y && location.y <= max.y);
+        return (location.x >= this.min.x && location.x <= this.max.x)
+                && (location.y >= this.min.y && location.y <= this.max.y);
     }
 
     /**
@@ -142,11 +142,11 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
     @Override
     public List<Vec2> enclosedPoints() {
         if (this.enclosedPoints == null) {
-            int startX = MathUtilities.floor(min.x);
-            int startY = MathUtilities.floor(min.y);
+            int startX = MathUtilities.floor(this.min.x);
+            int startY = MathUtilities.floor(this.min.y);
 
-            int endX = MathUtilities.floor(max.x);
-            int endY = MathUtilities.floor(max.y);
+            int endX = MathUtilities.floor(this.max.x);
+            int endY = MathUtilities.floor(this.max.y);
 
             Vec2[] points = new Vec2[(endX - startX + 1) * (endY - startY + 1)];
 
@@ -184,7 +184,7 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      */
     @Override
     public RectangleRegion offset(Vec2 offset) {
-        return new RectangleRegion(pos1.add(offset), pos2.add(offset));
+        return new RectangleRegion(this.pos1.add(offset), this.pos2.add(offset));
     }
 
     /**
@@ -194,8 +194,8 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      * @return the new {@link RectangleRegion}
      */
     public RectangleRegion expand(Vec2 expansion) { // TODO: preserve pos1 and pos2
-        Vec2 newMin = new Vec2(min.x - expansion.x, min.y - expansion.y);
-        Vec2 newMax = new Vec2(max.x + expansion.x, max.y + expansion.y);
+        Vec2 newMin = new Vec2(this.min.x - expansion.x, this.min.y - expansion.y);
+        Vec2 newMax = new Vec2(this.max.x + expansion.x, this.max.y + expansion.y);
 
         return new RectangleRegion(newMin, newMax);
     }
@@ -207,8 +207,8 @@ public class RectangleRegion implements Region<RectangleRegion, Vec2> {
      * @return the new {@link RectangleRegion}
      */
     public RectangleRegion expand(double expansion) { // TODO: preserve pos1 and pos2
-        Vec2 newMin = new Vec2(min.x - expansion, min.y - expansion);
-        Vec2 newMax = new Vec2(max.x + expansion, max.y + expansion);
+        Vec2 newMin = new Vec2(this.min.x - expansion, this.min.y - expansion);
+        Vec2 newMax = new Vec2(this.max.x + expansion, this.max.y + expansion);
 
         return new RectangleRegion(newMin, newMax);
     }

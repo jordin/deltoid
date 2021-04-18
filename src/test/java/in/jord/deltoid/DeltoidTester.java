@@ -26,7 +26,7 @@ public class DeltoidTester {
     }
 
     public static void logWithTime(String test) {
-        System.out.println(String.format("%s: %fs", test, (System.nanoTime() - startTime) / 1000000000D));
+        System.out.println(String.format("%s: %fs", test, (System.nanoTime() - startTime) / 1000000000.0D));
         startTime = System.nanoTime();
     }
 }

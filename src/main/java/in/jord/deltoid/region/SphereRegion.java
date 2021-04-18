@@ -1,6 +1,6 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
 
@@ -20,7 +20,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("centre")
+    @JsonProperty("centre")
     public final Vec3 centre;
 
     /**
@@ -28,7 +28,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("radius")
+    @JsonProperty("radius")
     public final double radius;
 
     /**
@@ -36,7 +36,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("volume")
+    @JsonProperty("volume")
     private double volume;
 
     /**
@@ -44,7 +44,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("surface_area")
+    @JsonProperty("surface_area")
     private double surfaceArea;
 
     public SphereRegion(Vec3 centre, double radius) {
@@ -105,7 +105,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public List<Vec3> enclosedPoints() {
-        Vec3 bounds = new Vec3(radius, radius, radius);
+        Vec3 bounds = new Vec3(this.radius, this.radius, this.radius);
         return UnionUtilities.overlap(new CuboidRegion(this.centre.add(bounds), this.centre.subtract(bounds)), this);
     }
 
@@ -128,6 +128,6 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public SphereRegion offset(Vec3 offset) {
-        return new SphereRegion(centre.add(offset), radius);
+        return new SphereRegion(this.centre.add(offset), this.radius);
     }
 }

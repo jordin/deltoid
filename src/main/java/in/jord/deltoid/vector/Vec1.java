@@ -1,6 +1,6 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Vec1 implements Vector<Vec1> {
     /**
@@ -54,7 +54,7 @@ public class Vec1 implements Vector<Vec1> {
      *
      * @serial
      */
-    @SerializedName("x")
+    @JsonProperty("x")
     public final double x;
 
     /**
@@ -81,7 +81,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public double length() {
-        return Math.abs(x);
+        return Math.abs(this.x);
     }
 
     /**
@@ -126,11 +126,11 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 normalize() {
-        if (x == 0) {
+        if (this.x == 0) {
             return ZERO;
         }
 
-        if (x > 0) {
+        if (this.x > 0) {
             return ONE;
         }
 
@@ -156,7 +156,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 scale(double scaleFactor) {
-        return new Vec1(x * scaleFactor);
+        return new Vec1(this.x * scaleFactor);
     }
 
     /**
@@ -167,7 +167,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 add(Vec1 addend) {
-        return new Vec1(x + addend.x);
+        return new Vec1(this.x + addend.x);
     }
 
     /**
@@ -178,7 +178,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 subtract(Vec1 subtrahend) {
-        return new Vec1(x - subtrahend.x);
+        return new Vec1(this.x - subtrahend.x);
     }
 
     /**
@@ -188,7 +188,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 floor() {
-        return new Vec1(Math.floor(x));
+        return new Vec1(Math.floor(this.x));
     }
 
     /**
@@ -198,7 +198,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 ceil() {
-        return new Vec1(Math.ceil(x));
+        return new Vec1(Math.ceil(this.x));
     }
 
     /**
@@ -208,7 +208,7 @@ public class Vec1 implements Vector<Vec1> {
      */
     @Override
     public Vec1 reverse() {
-        return new Vec1(-x);
+        return new Vec1(-this.x);
     }
 
     @Override
