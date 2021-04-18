@@ -8,23 +8,24 @@ import org.junit.Test;
  * Created by appledash on 7/17/17.
  * Blackjack is best pony.
  */
+@SuppressWarnings({"ConstantMathCall", "MagicNumber", "PointlessArithmeticExpression"})
 public class Vec3Test {
     @Test
     public void testGetters() {
         Vec3 vec3 = new Vec3(1, 2, 3);
-        Assert.assertEquals(1, vec3.x, 0D);
-        Assert.assertEquals(2, vec3.y, 0D);
-        Assert.assertEquals(3, vec3.z, 0D);
+        Assert.assertEquals(1, vec3.x, 0.0D);
+        Assert.assertEquals(2, vec3.y, 0.0D);
+        Assert.assertEquals(3, vec3.z, 0.0D);
 
         Vec3 twoDee = new Vec3(1, 2);
-        Assert.assertEquals(1, twoDee.x, 0D);
-        Assert.assertEquals(2, twoDee.y, 0D);
-        Assert.assertEquals(0, twoDee.z, 0D);
+        Assert.assertEquals(1, twoDee.x, 0.0D);
+        Assert.assertEquals(2, twoDee.y, 0.0D);
+        Assert.assertEquals(0, twoDee.z, 0.0D);
     }
 
     @Test
     public void testConstants() {
-        Assert.assertTrue(Vec3.ORIGIN == Vec3.ZERO);
+        Assert.assertSame(Vec3.ORIGIN, Vec3.ZERO);
         Assert.assertTrue(Vec3.ORIGIN.x == 0 && Vec3.ORIGIN.y == 0 && Vec3.ORIGIN.z == 0);
         Assert.assertTrue(Vec3.ONE.x == 1 && Vec3.ONE.y == 1 && Vec3.ONE.z == 1);
         Assert.assertTrue(Vec3.X_AXIS.x == 1 && Vec3.X_AXIS.y == 0 && Vec3.X_AXIS.z == 0);

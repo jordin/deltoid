@@ -4,8 +4,11 @@ import in.jord.deltoid.vector.Rotation;
 import in.jord.deltoid.vector.Vec2;
 import in.jord.deltoid.vector.Vec3;
 
-public class MathUtilities {
+public final class MathUtilities {
     private static final double TAU = 2 * Math.PI;
+
+    private MathUtilities() {
+    }
 
     /**
      * Returns a {@link Vec2} of the weighted average of
@@ -155,7 +158,7 @@ public class MathUtilities {
      * @return the wrapped <b>angle</b>
      */
     public static double wrapDegrees(double angle) {
-        angle = angle % 360.0D;
+        angle %= 360.0D;
         if (angle >= 180.0D) {
             angle -= 360.0D;
         }
@@ -175,7 +178,7 @@ public class MathUtilities {
      * @return the wrapped <b>angle</b>
      */
     public static double wrapRadians(double angle) {
-        angle = angle % TAU;
+        angle %= TAU;
         if (angle >= Math.PI) {
             angle -= TAU;
         }

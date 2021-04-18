@@ -1,9 +1,7 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
-
-import java.util.Objects;
 
 public class Rotation implements Vector<Rotation> {
     /**
@@ -22,7 +20,7 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("yaw")
+    @JsonProperty("yaw")
     public final double rotationYaw;
 
     /**
@@ -30,7 +28,7 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("pitch")
+    @JsonProperty("pitch")
     public final double rotationPitch;
 
     /**
@@ -38,10 +36,10 @@ public class Rotation implements Vector<Rotation> {
      *
      * @serial
      */
-    @SerializedName("roll")
+    @JsonProperty("roll")
     public final double rotationRoll;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Rotation} object.
@@ -104,10 +102,10 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public double length() {
-        if (length == -1) {
-            length = Math.sqrt(this.rotationYaw * this.rotationYaw + this.rotationPitch * this.rotationPitch + this.rotationRoll * this.rotationRoll);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.rotationYaw * this.rotationYaw + this.rotationPitch * this.rotationPitch + this.rotationRoll * this.rotationRoll);
         }
-        return length;
+        return this.length;
     }
 
 
@@ -128,7 +126,7 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public double[] components() {
-        return new double[]{rotationYaw, rotationPitch, rotationRoll};
+        return new double[]{this.rotationYaw, this.rotationPitch, this.rotationRoll};
     }
 
     /**
@@ -143,16 +141,16 @@ public class Rotation implements Vector<Rotation> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Rotation rotation = (Rotation) other;
-        return Double.compare(rotation.rotationYaw, rotationYaw) == 0 &&
-                Double.compare(rotation.rotationPitch, rotationPitch) == 0 &&
-                Double.compare(rotation.rotationRoll, rotationRoll) == 0;
+        return Double.compare(rotation.rotationYaw, this.rotationYaw) == 0 &&
+               Double.compare(rotation.rotationPitch, this.rotationPitch) == 0 &&
+               Double.compare(rotation.rotationRoll, this.rotationRoll) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rotationYaw, rotationPitch, rotationRoll);
+        return (Double.hashCode(this.rotationYaw) * 31 + Double.hashCode(this.rotationPitch)) * 31 + Double.hashCode(this.rotationRoll);
     }
 
     /**
@@ -162,7 +160,7 @@ public class Rotation implements Vector<Rotation> {
      * @throws UnsupportedOperationException {@link Rotation} {@code normalize} is meaningless.
      */
     public Rotation normalize() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Rotation normalize is meaningless.");
     }
 
     /**
@@ -174,7 +172,7 @@ public class Rotation implements Vector<Rotation> {
      */
     @Override
     public Rotation normalize(double length) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Rotation normalize is meaningless.");
     }
 
     /**

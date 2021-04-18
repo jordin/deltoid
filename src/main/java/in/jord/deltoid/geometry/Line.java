@@ -1,6 +1,5 @@
 package in.jord.deltoid.geometry;
 
-import com.google.gson.annotations.SerializedName;
 import in.jord.deltoid.vector.Vec3;
 
 public class Line {
@@ -19,7 +18,6 @@ public class Line {
      *
      * @serial
      */
-    @SerializedName("start")
     public final Vec3 start;
 
     /**
@@ -27,7 +25,6 @@ public class Line {
      *
      * @serial
      */
-    @SerializedName("end")
     public final Vec3 end;
 
     /**
@@ -39,7 +36,6 @@ public class Line {
      *
      * @serial
      */
-    @SerializedName("delta")
     public final Vec3 delta;
 
     /**
@@ -51,7 +47,6 @@ public class Line {
      *
      * @serial
      */
-    @SerializedName("length")
     public final double length;
 
     /**

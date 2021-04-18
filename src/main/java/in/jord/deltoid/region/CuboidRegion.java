@@ -1,11 +1,12 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +27,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("min")
+    @JsonProperty("min")
     public final Vec3 min;
 
     /**
@@ -35,7 +36,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("max")
+    @JsonProperty("max")
     public final Vec3 max;
 
     /**
@@ -43,7 +44,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("pos1")
+    @JsonProperty("pos1")
     public final Vec3 pos1;
 
     /**
@@ -51,7 +52,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("pos2")
+    @JsonProperty("pos2")
     public final Vec3 pos2;
 
     /**
@@ -60,7 +61,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("dimensions")
+    @JsonProperty("dimensions")
     public final Vec3 dimensions;
 
     /**
@@ -68,7 +69,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("volume")
+    @JsonProperty("volume")
     private final double volume;
 
     /**
@@ -76,7 +77,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("surface_area")
+    @JsonProperty("surface_area")
     private final double surfaceArea;
 
     /**
@@ -84,7 +85,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      *
      * @serial
      */
-    private List<Vec3> enclosedPoints;
+    private transient List<Vec3> enclosedPoints;
 
     /**
      * Constructs a newly allocated {@link CuboidRegion} object.
@@ -110,7 +111,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
         this.min = new Vec3(Math.min(pos1.x, pos2.x), Math.min(pos1.y, pos2.y), Math.min(pos1.z, pos2.z));
         this.max = new Vec3(Math.max(pos1.x, pos2.x), Math.max(pos1.y, pos2.y), Math.max(pos1.z, pos2.z));
 
-        this.dimensions = new Vec3(max.x - min.x, max.y - min.y, max.z - min.z);
+        this.dimensions = new Vec3(this.max.x - this.min.x, this.max.y - this.min.y, this.max.z - this.min.z);
 
         this.volume = this.dimensions.x * this.dimensions.y * this.dimensions.z;
         this.surfaceArea = 2 * (this.dimensions.x * this.dimensions.y + this.dimensions.y * this.dimensions.z + this.dimensions.x * this.dimensions.z);
@@ -156,9 +157,9 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      */
     @Override
     public boolean contains(Vec3 location) {
-        return (location.x >= min.x && location.x <= max.x)
-                && (location.y >= min.y && location.y <= max.y)
-                && (location.z >= min.z && location.z <= max.z);
+        return (location.x >= this.min.x && location.x <= this.max.x)
+                && (location.y >= this.min.y && location.y <= this.max.y)
+                && (location.z >= this.min.z && location.z <= this.max.z);
     }
 
     /**
@@ -169,13 +170,13 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
     @Override
     public List<Vec3> enclosedPoints() {
         if (this.enclosedPoints == null) {
-            int startX = MathUtilities.floor(min.x);
-            int startY = MathUtilities.floor(min.y);
-            int startZ = MathUtilities.floor(min.z);
+            int startX = MathUtilities.floor(this.min.x);
+            int startY = MathUtilities.floor(this.min.y);
+            int startZ = MathUtilities.floor(this.min.z);
 
-            int endX = MathUtilities.floor(max.x);
-            int endY = MathUtilities.floor(max.y);
-            int endZ = MathUtilities.floor(max.z);
+            int endX = MathUtilities.floor(this.max.x);
+            int endY = MathUtilities.floor(this.max.y);
+            int endZ = MathUtilities.floor(this.max.z);
 
             Vec3[] points = new Vec3[(endX - startX + 1) * (endY - startY + 1) * (endZ - startZ + 1)];
 
@@ -191,7 +192,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
             this.enclosedPoints = Arrays.asList(points);
         }
 
-        return this.enclosedPoints;
+        return Collections.unmodifiableList(this.enclosedPoints);
     }
 
     /**
@@ -214,7 +215,7 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      */
     @Override
     public CuboidRegion offset(Vec3 offset) {
-        return new CuboidRegion(pos1.add(offset), pos2.add(offset));
+        return new CuboidRegion(this.pos1.add(offset), this.pos2.add(offset));
     }
 
     /**
@@ -224,8 +225,8 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      * @return the new {@link CuboidRegion}
      */
     public CuboidRegion expand(Vec3 expansion) { // TODO: preserve pos1 and pos2
-        Vec3 newMin = new Vec3(min.x - expansion.x, min.y - expansion.y, min.z - expansion.z);
-        Vec3 newMax = new Vec3(max.x + expansion.x, max.y + expansion.y, max.z + expansion.z);
+        Vec3 newMin = new Vec3(this.min.x - expansion.x, this.min.y - expansion.y, this.min.z - expansion.z);
+        Vec3 newMax = new Vec3(this.max.x + expansion.x, this.max.y + expansion.y, this.max.z + expansion.z);
 
         return new CuboidRegion(newMin, newMax);
     }
@@ -237,8 +238,8 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      * @return the new {@link CuboidRegion}
      */
     public CuboidRegion expand(double expansion) { // TODO: preserve pos1 and pos2
-        Vec3 newMin = new Vec3(min.x - expansion, min.y - expansion, min.z - expansion);
-        Vec3 newMax = new Vec3(max.x + expansion, max.y + expansion, max.z + expansion);
+        Vec3 newMin = new Vec3(this.min.x - expansion, this.min.y - expansion, this.min.z - expansion);
+        Vec3 newMax = new Vec3(this.max.x + expansion, this.max.y + expansion, this.max.z + expansion);
 
         return new CuboidRegion(newMin, newMax);
     }
@@ -248,22 +249,22 @@ public class CuboidRegion implements Region<CuboidRegion, Vec3> {
      * true} if and only if the argument is not {@code null} and is a {@link CuboidRegion}
      * object that represents the same rotation angles as this {@link CuboidRegion}.
      *
-     * @param other the object to compare this {@link CuboidRegion} against
+     * @param object the object to compare this {@link CuboidRegion} against
      * @return {@code true} if the given object represents a {@link CuboidRegion}
      * equivalent to this {@link CuboidRegion}, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        CuboidRegion that = (CuboidRegion) other;
-        return Objects.equals(min, that.min) &&
-                Objects.equals(max, that.max) &&
-                Objects.equals(dimensions, that.dimensions);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || this.getClass() != object.getClass()) return false;
+        CuboidRegion other = (CuboidRegion) object;
+        return Objects.equals(this.min, other.min) &&
+               Objects.equals(this.max, other.max) &&
+               Objects.equals(this.dimensions, other.dimensions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(min, max, dimensions);
+        return this.min.hashCode() * 31 + this.max.hashCode();
     }
 }

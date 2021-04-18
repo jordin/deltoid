@@ -1,8 +1,5 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Objects;
 
 public class Direction implements Vector<Direction> {
     /**
@@ -22,7 +19,6 @@ public class Direction implements Vector<Direction> {
      *
      * @serial
      */
-    @SerializedName("alpha")
     public final double alpha;
 
     /**
@@ -31,7 +27,6 @@ public class Direction implements Vector<Direction> {
      *
      * @serial
      */
-    @SerializedName("beta")
     public final double beta;
 
     /**
@@ -40,10 +35,9 @@ public class Direction implements Vector<Direction> {
      *
      * @serial
      */
-    @SerializedName("gamma")
     public final double gamma;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Direction} object.
@@ -88,10 +82,10 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public double length() {
-        if (length == -1) {
-            length = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta + this.gamma * this.gamma);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta + this.gamma * this.gamma);
         }
-        return length;
+        return this.length;
     }
 
     /**
@@ -126,16 +120,16 @@ public class Direction implements Vector<Direction> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Direction direction = (Direction) other;
-        return Double.compare(direction.alpha, alpha) == 0 &&
-                Double.compare(direction.beta, beta) == 0 &&
-                Double.compare(direction.gamma, gamma) == 0;
+        return Double.compare(direction.alpha, this.alpha) == 0 &&
+               Double.compare(direction.beta, this.beta) == 0 &&
+               Double.compare(direction.gamma, this.gamma) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alpha, beta, gamma);
+        return (Double.hashCode(this.alpha) * 31 + Double.hashCode(this.beta)) * 31 + Double.hashCode(this.gamma);
     }
 
     /**
@@ -146,7 +140,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction normalize() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction normalize is meaningless");
     }
 
     /**
@@ -158,7 +152,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction normalize(double length) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction normalize is meaningless");
     }
 
     /**
@@ -170,7 +164,7 @@ public class Direction implements Vector<Direction> {
      */
     @Override
     public Direction scale(double scaleFactor) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Direction scale is meaningless");
     }
 
     /**

@@ -1,8 +1,6 @@
 package in.jord.deltoid.vector;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Vec2 implements Vector<Vec2> {
     /**
@@ -61,7 +59,7 @@ public class Vec2 implements Vector<Vec2> {
      *
      * @serial
      */
-    @SerializedName("x")
+    @JsonProperty("x")
     public final double x;
 
     /**
@@ -69,10 +67,10 @@ public class Vec2 implements Vector<Vec2> {
      *
      * @serial
      */
-    @SerializedName("y")
+    @JsonProperty("y")
     public final double y;
 
-    private volatile double length = -1;
+    private transient double length = -1;
 
     /**
      * Constructs a newly allocated {@link Vec2} object.
@@ -101,8 +99,8 @@ public class Vec2 implements Vector<Vec2> {
     }
 
     private void calculateLength() {
-        if (length == -1) {
-            length = Math.sqrt(x * x + y * y);
+        if (this.length == -1) {
+            this.length = Math.sqrt(this.x * this.x + this.y * this.y);
         }
     }
 
@@ -113,8 +111,8 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public double length() {
-        calculateLength();
-        return length;
+        this.calculateLength();
+        return this.length;
     }
 
     /**
@@ -149,15 +147,15 @@ public class Vec2 implements Vector<Vec2> {
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null || this.getClass() != other.getClass()) return false;
         Vec2 vec2 = (Vec2) other;
-        return Double.compare(vec2.x, x) == 0 &&
-                Double.compare(vec2.y, y) == 0;
+        return Double.compare(vec2.x, this.x) == 0 &&
+               Double.compare(vec2.y, this.y) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Double.hashCode(this.x) * 31 + Double.hashCode(this.y);
     }
 
     /**
@@ -167,11 +165,11 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 normalize() {
-        calculateLength();
-        if (length == 0) {
+        this.calculateLength();
+        if (this.length == 0) {
             return ZERO;
         }
-        return new Vec2(x / length, y / length);
+        return new Vec2(this.x / this.length, this.y / this.length);
     }
 
     /**
@@ -193,7 +191,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 scale(double scaleFactor) {
-        return new Vec2(x * scaleFactor, y * scaleFactor);
+        return new Vec2(this.x * scaleFactor, this.y * scaleFactor);
     }
 
     /**
@@ -204,7 +202,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 add(Vec2 addend) {
-        return new Vec2(x + addend.x, y + addend.y);
+        return new Vec2(this.x + addend.x, this.y + addend.y);
     }
 
     /**
@@ -215,7 +213,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 subtract(Vec2 subtrahend) {
-        return new Vec2(x - subtrahend.x, y - subtrahend.y);
+        return new Vec2(this.x - subtrahend.x, this.y - subtrahend.y);
     }
 
     /**
@@ -225,7 +223,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 floor() {
-        return new Vec2(Math.floor(x), Math.floor(y));
+        return new Vec2(Math.floor(this.x), Math.floor(this.y));
     }
 
     /**
@@ -235,7 +233,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 ceil() {
-        return new Vec2(Math.ceil(x), Math.ceil(y));
+        return new Vec2(Math.ceil(this.x), Math.ceil(this.y));
     }
 
     /**
@@ -245,7 +243,7 @@ public class Vec2 implements Vector<Vec2> {
      */
     @Override
     public Vec2 reverse() {
-        return new Vec2(-x, -y);
+        return new Vec2(-this.x, -this.y);
     }
 
     @Override

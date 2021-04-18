@@ -1,6 +1,6 @@
 package in.jord.deltoid.world;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.MathUtilities;
 import in.jord.deltoid.vector.Rotation;
 import in.jord.deltoid.vector.Vec3;
@@ -12,7 +12,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("previous_position")
+    @JsonProperty("previous_position")
     private Vec3 previousPosition;
 
     /**
@@ -20,7 +20,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("position")
+    @JsonProperty("position")
     private Vec3 position;
 
     /**
@@ -28,7 +28,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("previous_rotation")
+    @JsonProperty("previous_rotation")
     private Rotation previousRotation;
 
     /**
@@ -36,7 +36,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("rotation")
+    @JsonProperty("rotation")
     private Rotation rotation;
 
     /**
@@ -44,7 +44,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("velocity")
+    @JsonProperty("velocity")
     private Vec3 velocity;
 
     /**
@@ -52,7 +52,7 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("acceleration")
+    @JsonProperty("acceleration")
     private Vec3 acceleration;
 
     /**
@@ -60,8 +60,8 @@ public class PhysicsObject {
      *
      * @serial
      */
-    @SerializedName("mass")
-    private double mass = 0;
+    @JsonProperty("mass")
+    private double mass;
 
     /**
      * Constructs a newly allocated {@link PhysicsObject} object.
@@ -141,7 +141,7 @@ public class PhysicsObject {
      * @return the interpolated {@link Vec3}
      */
     public Vec3 getRenderPosition(double ratio) {
-        return MathUtilities.interpolate(previousPosition, position, ratio);
+        return MathUtilities.interpolate(this.previousPosition, this.position, ratio);
     }
 
     /**
@@ -152,7 +152,7 @@ public class PhysicsObject {
      * @return the interpolated {@link Rotation}
      */
     public Rotation getRenderRotation(double ratio) {
-        return MathUtilities.interpolate(previousRotation, rotation, ratio);
+        return MathUtilities.interpolate(this.previousRotation, this.rotation, ratio);
     }
 
     /**
@@ -171,12 +171,12 @@ public class PhysicsObject {
      * @param deltaTime the elapsed time to simulate this {@link PhysicsObject} for.
      */
     public void update(double deltaTime) {
-        previousPosition = position;
-        previousRotation = rotation;
-        position = position.add(velocity.scale(deltaTime));
+        this.previousPosition = this.position;
+        this.previousRotation = this.rotation;
+        this.position = this.position.add(this.velocity.scale(deltaTime));
 
-        if (velocity.isValid() && acceleration.isValid()) {
-            velocity = velocity.add(acceleration.scale(deltaTime));
+        if (this.velocity.isValid() && this.acceleration.isValid()) {
+            this.velocity = this.velocity.add(this.acceleration.scale(deltaTime));
         }
     }
 
@@ -208,7 +208,7 @@ public class PhysicsObject {
      * @return the current position
      */
     public Vec3 getPosition() {
-        return position;
+        return this.position;
     }
 
     /**
@@ -217,7 +217,7 @@ public class PhysicsObject {
      * @return the current rotation
      */
     public Rotation getRotation() {
-        return rotation;
+        return this.rotation;
     }
 
     /**
@@ -226,7 +226,7 @@ public class PhysicsObject {
      * @return the current velocity
      */
     public Vec3 getVelocity() {
-        return velocity;
+        return this.velocity;
     }
 
     /**
@@ -244,7 +244,7 @@ public class PhysicsObject {
      * @return the current acceleration
      */
     public Vec3 getAcceleration() {
-        return acceleration;
+        return this.acceleration;
     }
 
     /**

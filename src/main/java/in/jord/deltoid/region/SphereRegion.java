@@ -1,6 +1,6 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec3;
 
@@ -18,15 +18,15 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     public static final SphereRegion INVALID = new SphereRegion(Vec3.INVALID, 0);
 
-    private static double TWO_TAU = 4.0 * Math.PI;
-    private static double TWO_OVER_THREE_TIMES_TAU = 4.0 / 3.0 * Math.PI;
+    private static final double TWO_TAU = 4.0 * Math.PI;
+    private static final double TWO_OVER_THREE_TIMES_TAU = 4.0 / 3.0 * Math.PI;
 
     /**
      * The location of the centre of this {@link SphereRegion}.
      *
      * @serial
      */
-    @SerializedName("centre")
+    @JsonProperty("centre")
     public final Vec3 centre;
 
     /**
@@ -34,7 +34,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("radius")
+    @JsonProperty("radius")
     public final double radius;
 
     /**
@@ -42,7 +42,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("volume")
+    @JsonProperty("volume")
     private double volume;
 
     /**
@@ -50,7 +50,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      *
      * @serial
      */
-    @SerializedName("surface_area")
+    @JsonProperty("surface_area")
     private double surfaceArea;
 
     public SphereRegion(Vec3 centre, double radius) {
@@ -116,7 +116,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public List<Vec3> enclosedPoints() {
-        Vec3 bounds = new Vec3(radius, radius, radius);
+        Vec3 bounds = new Vec3(this.radius, this.radius, this.radius);
         return UnionUtilities.overlap(new CuboidRegion(this.centre.add(bounds), this.centre.subtract(bounds)), this);
     }
 
@@ -139,7 +139,7 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      */
     @Override
     public SphereRegion offset(Vec3 offset) {
-        return new SphereRegion(centre.add(offset), radius);
+        return new SphereRegion(this.centre.add(offset), this.radius);
     }
 
     /**
@@ -147,21 +147,21 @@ public class SphereRegion implements Region<SphereRegion, Vec3> {
      * true} if and only if the argument is not {@code null} and is a {@link SphereRegion}
      * object that represents the same rotation angles as this {@link SphereRegion}.
      *
-     * @param other the object to compare this {@link SphereRegion} against
+     * @param object the object to compare this {@link SphereRegion} against
      * @return {@code true} if the given object represents a {@link SphereRegion}
      * equivalent to this {@link SphereRegion}, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        SphereRegion that = (SphereRegion) other;
-        return Double.compare(that.radius, radius) == 0 &&
-                Objects.equals(centre, that.centre);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || this.getClass() != object.getClass()) return false;
+        SphereRegion other = (SphereRegion) object;
+        return Double.compare(other.radius, this.radius) == 0 &&
+               Objects.equals(this.centre, other.centre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centre, radius);
+        return this.centre.hashCode() * 31 + Double.hashCode(this.radius);
     }
 }

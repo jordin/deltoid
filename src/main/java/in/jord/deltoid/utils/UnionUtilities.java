@@ -7,8 +7,11 @@ import in.jord.deltoid.vector.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnionUtilities {
-    public static <R1, R2, V> List<V> overlap(Region<R1, V> region1, Region<R2, V> region2) {
+public final class UnionUtilities {
+    private UnionUtilities() {
+    }
+
+    public static <R1, R2, V> List<V> overlap(Region<R1, ? extends V> region1, Region<R2, ? super V> region2) {
         List<V> locations = new ArrayList<>();
 
         region1.enclosedPoints().stream()

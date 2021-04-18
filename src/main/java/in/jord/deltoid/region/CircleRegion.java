@@ -1,6 +1,6 @@
 package in.jord.deltoid.region;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import in.jord.deltoid.utils.UnionUtilities;
 import in.jord.deltoid.vector.Vec2;
 
@@ -18,14 +18,14 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     public static final CircleRegion INVALID = new CircleRegion(Vec2.INVALID, 0);
 
-    private static double HALF_TAU = Math.PI;
+    private static final double HALF_TAU = Math.PI;
 
     /**
      * The location of the centre of this {@link CircleRegion}.
      *
      * @serial
      */
-    @SerializedName("centre")
+    @JsonProperty("centre")
     public final Vec2 centre;
 
     /**
@@ -33,7 +33,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("radius")
+    @JsonProperty("radius")
     public final double radius;
 
     /**
@@ -41,7 +41,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      *
      * @serial
      */
-    @SerializedName("area")
+    @JsonProperty("area")
     private double surfaceArea;
 
     public CircleRegion(Vec2 centre, double radius) {
@@ -105,7 +105,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public List<Vec2> enclosedPoints() {
-        Vec2 bounds = new Vec2(radius, radius);
+        Vec2 bounds = new Vec2(this.radius, this.radius);
         return UnionUtilities.overlap(new RectangleRegion(this.centre.add(bounds), this.centre.subtract(bounds)), this);
     }
 
@@ -128,7 +128,7 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      */
     @Override
     public CircleRegion offset(Vec2 offset) {
-        return new CircleRegion(centre.add(offset), radius);
+        return new CircleRegion(this.centre.add(offset), this.radius);
     }
 
     /**
@@ -141,16 +141,17 @@ public class CircleRegion implements Region<CircleRegion, Vec2> {
      * equivalent to this {@link CircleRegion}, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        CircleRegion that = (CircleRegion) other;
-        return Double.compare(that.radius, radius) == 0 &&
-                Objects.equals(centre, that.centre);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || this.getClass() != object.getClass()) return false;
+
+        CircleRegion other = (CircleRegion) object;
+        return Double.compare(other.radius, this.radius) == 0 &&
+               Objects.equals(this.centre, other.centre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centre, radius);
+        return this.centre.hashCode() * 31 + Double.hashCode(this.radius);
     }
 }
